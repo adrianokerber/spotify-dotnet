@@ -47,7 +47,7 @@ namespace Crescer.Spotify.WebApi.Controllers
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            musicaRepository.SalvarMusica(musica);            
+            musicaRepository.SalvarMusica(musica);
             return Ok();
         }
 

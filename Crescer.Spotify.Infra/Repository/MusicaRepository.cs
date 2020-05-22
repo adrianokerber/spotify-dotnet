@@ -8,6 +8,7 @@ namespace Crescer.Spotify.Infra.Repository
 {
     public class MusicaRepository : IMusicaRepository
     {
+        // TODO: all the musics should be saved on MongoDB https://docs.mongodb.com/drivers/csharp
         private static List<Musica> musicas = new List<Musica>();
         private static int idMusica = 1;
 
