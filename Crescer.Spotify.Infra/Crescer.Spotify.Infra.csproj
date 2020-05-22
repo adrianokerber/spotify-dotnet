@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Crescer.Spotify.Dominio\Crescer.Spotify.Dominio.csproj" />
   </ItemGroup>
 
