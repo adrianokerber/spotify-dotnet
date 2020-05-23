@@ -7,6 +7,7 @@ using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.Infra;
 using Crescer.Spotify.WebApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crescer.Spotify.WebApi.Controllers
@@ -17,30 +18,35 @@ namespace Crescer.Spotify.WebApi.Controllers
         private IMusicaRepository musicaRepository;
         private IAlbumRepository albumRepository;
         private MusicaService musicaService;
-        
+
         public MusicasController(IMusicaRepository musicaRepository, MusicaService musicaService, IAlbumRepository albumRepository)
         {
             this.musicaRepository = musicaRepository;
             this.musicaService = musicaService;
-            this.albumRepository = albumRepository;            
+            this.albumRepository = albumRepository;
         }
-        // GET api/values
+        // GET api/musicas
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(musicaRepository.ListarMusicas());
         }
 
-        // GET api/values/5
+        // GET api/musicas/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id)
         {
             return Ok(musicaRepository.Obter(id));
         }
 
-        // POST api/values
+        // POST api/musicas
         [HttpPost]
-        public IActionResult Post([FromBody]MusicaDto musicaRequest)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Post([FromBody] MusicaDto musicaRequest)
         {
             var musica = MapearDtoParaDominio(musicaRequest);
             var mensagens = musicaService.Validar(musica);
@@ -48,26 +54,34 @@ namespace Crescer.Spotify.WebApi.Controllers
                 return BadRequest(mensagens);
 
             musicaRepository.SalvarMusica(musica);
-            return Ok();
+            return StatusCode(201);
         }
 
-        // PUT api/values/5
+        // PUT api/musicas/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]MusicaDto musicaRequest)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(int id, [FromBody] MusicaDto musicaRequest)
         {
+            // TODO: add notfound behaviour from DB
+            // TODO: evaluate if we should return the updated object
             var musica = MapearDtoParaDominio(musicaRequest);
             var mensagens = musicaService.Validar(musica);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            musicaRepository.AtualizarMusica(id, musica);            
+            musicaRepository.AtualizarMusica(id, musica);
             return Ok();
         }
 
-        // DELETE api/values/5
+        // DELETE api/musicas/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Delete(int id)
         {
+            // TODO: add notfound behaviour from DB
             musicaRepository.DeletarMusica(id);
             return Ok();
         }
