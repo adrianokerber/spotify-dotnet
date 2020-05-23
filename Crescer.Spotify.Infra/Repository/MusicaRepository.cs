@@ -3,22 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
+using Crescer.Spotify.Infra.Entities;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Crescer.Spotify.Infra.Repository
 {
     public class MusicaRepository : IMusicaRepository
     {
-        // TODO: all the musics should be saved on MongoDB https://docs.mongodb.com/drivers/csharp
         private static List<Musica> musicas = new List<Musica>();
-        private static int idMusica = 1;
+        private IMongoCollection<MusicEntity> collection;
 
-        public void AtualizarMusica(int id, Musica musica)
+        public MusicaRepository()
+        {
+            // TODO: set client as dependency to be injected
+            var mongoClient = new MongoClient(
+                "mongodb+srv://spotifydotnetUser:2qNECVRjmAQHYsfx@clusterzero-09qhx.mongodb.net/test?retryWrites=true&w=majority"
+            );
+
+            var database = mongoClient.GetDatabase("spotifydotnet");
+            collection = database.GetCollection<MusicEntity>("music");
+        }
+
+        public void AtualizarMusica(string id, Musica musica)
         {
             var musicaObtida = Obter(id);
             musicaObtida?.Atualizar(musica);
         }
 
-        public void DeletarMusica(int id)
+        public void DeletarMusica(string id)
         {
             var musica = this.Obter(id);
             musicas.Remove(musica);
@@ -29,20 +42,31 @@ namespace Crescer.Spotify.Infra.Repository
             return musicas;
         }
 
-        public List<Musica> ListarMusicas(List<int> idsMusica)
+        public List<Musica> ListarMusicas(List<string> idsMusica)
         {
-            return musicas.Where(x => idsMusica.Contains(x.Id)).ToList();
+            return musicas.Where(x => idsMusica.Contains(x.Id.ToString())).ToList();
         }
 
-        public Musica Obter(int id)
+        public Musica Obter(string id)
         {
-            return musicas.Where(x => x.Id == id).FirstOrDefault();
+            var musicEntity = collection
+                .Find<MusicEntity>(x => x.Id.Equals(ObjectId.Parse(id)))
+                .FirstOrDefault();
+            var musica = MapearEntityParaDomain(musicEntity);
+
+            return musica;
         }
 
         public void SalvarMusica(Musica musica)
         {
-            musica.Id = idMusica++;
-            musicas.Add(musica);
+            var music = new MusicEntity(musica.Nome, musica.Duracao);
+            collection.InsertOne(music);
+        }
+
+        private Musica MapearEntityParaDomain(MusicEntity musicEntity)
+        {
+            // TODO: Usar AutoMapper para converter
+            throw new NotImplementedException();
         }
     }
 }

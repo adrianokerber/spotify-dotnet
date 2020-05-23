@@ -6,9 +6,9 @@ namespace Crescer.Spotify.Dominio.Contratos
     public interface IAlbumRepository
     {       
         void SalvarAlbum(Album album);
-        void AtualizarAlbum(int id, Album album);
-        void DeletarAlbum(int id);
+        void AtualizarAlbum(string id, Album album);
+        void DeletarAlbum(string id);
         List<Album> ListarAlbum();
-        Album Obter(int id);
+        Album Obter(string id);
     }
 }

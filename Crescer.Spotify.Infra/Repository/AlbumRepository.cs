@@ -8,15 +8,14 @@ namespace Crescer.Spotify.Infra.Repository
     public class AlbumRepository : IAlbumRepository
     {
         private static List<Album> albuns = new List<Album>();
-        private static int idAlbum = 1;
 
-        public void AtualizarAlbum(int id, Album album)
+        public void AtualizarAlbum(string id, Album album)
         {
             var albumObtido = Obter(id);
             albumObtido?.Atualizar(album);
         }
 
-        public void DeletarAlbum(int id)
+        public void DeletarAlbum(string id)
         {
             var album = this.Obter(id);
             albuns.Remove(album);
@@ -27,14 +26,13 @@ namespace Crescer.Spotify.Infra.Repository
             return albuns;
         }
 
-        public Album Obter(int id)
+        public Album Obter(string id)
         {
-            return albuns.Where(x => x.Id == id).FirstOrDefault();
+            return albuns.Where(x => x.Id.ToString() == id).FirstOrDefault();
         }
 
         public void SalvarAlbum(Album album)
         {
-            album.Id = idAlbum++;
             albuns.Add(album);
         }
     }

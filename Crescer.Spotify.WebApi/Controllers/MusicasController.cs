@@ -37,7 +37,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Get(int id)
+        public IActionResult Get(string id)
         {
             return Ok(musicaRepository.Obter(id));
         }
@@ -62,7 +62,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(int id, [FromBody] MusicaDto musicaRequest)
+        public IActionResult Put(string id, [FromBody] MusicaDto musicaRequest)
         {
             // TODO: add notfound behaviour from DB
             // TODO: evaluate if we should return the updated object
@@ -79,7 +79,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             // TODO: add notfound behaviour from DB
             musicaRepository.DeletarMusica(id);
@@ -88,7 +88,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         private Musica MapearDtoParaDominio(MusicaDto musica)
         {
-            var albumObtido = albumRepository.Obter(musica.IdAlbum);
+            var albumObtido = albumRepository.Obter(musica.IdAlbum.ToString());
             return new Musica(musica.Nome, musica.Duracao, albumObtido);
         }
     }
