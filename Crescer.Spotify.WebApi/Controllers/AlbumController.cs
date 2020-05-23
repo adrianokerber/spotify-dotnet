@@ -28,7 +28,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult Get(string id)
         {
             return Ok(albumRepository.Obter(id));
         }
@@ -48,7 +48,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]AlbumDto albumRequest)
+        public IActionResult Put(string id, [FromBody]AlbumDto albumRequest)
         {
             var album = MapearDtoParaDominio(albumRequest);
             var mensagens = albumService.Validar(album);
@@ -61,7 +61,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             albumRepository.DeletarAlbum(id);
             return Ok();
@@ -69,7 +69,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         private Album MapearDtoParaDominio(AlbumDto album)
         {
-            List<Musica> musicas = musicaRepository.ListarMusicas(album.IdsMusicas);            
+            List<Musica> musicas = musicaRepository.ListarMusicas(new List<string>() { "1", "2" });
             return new Album(album.Nome, musicas);
         }
 
