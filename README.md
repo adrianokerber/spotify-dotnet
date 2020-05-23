@@ -4,3 +4,4 @@
 
 - Add MongoDB to store all data
 - Enhance RESTful API to follow REST principles (eg: when creating an entity we should return 201 instead of the simple 200)
+- Return DTOs instead of entity classes
