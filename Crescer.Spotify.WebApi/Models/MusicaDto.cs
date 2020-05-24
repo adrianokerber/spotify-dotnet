@@ -4,6 +4,6 @@ namespace Crescer.Spotify.WebApi.Models
     {
         public string Nome { get; set; }
         public double Duracao { get; set; }
-        public int IdAlbum { get; set; }
+        public string IdAlbum { get; set; }
     }
 }

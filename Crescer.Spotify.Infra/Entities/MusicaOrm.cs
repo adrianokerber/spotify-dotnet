@@ -15,8 +15,15 @@ namespace Crescer.Spotify.Infra.Entities
             this.Duracao = duracao;
         }
 
+        public MusicaOrm(string nome, double duracao, string album)
+        {
+            this.Nome = nome;
+            this.Duracao = duracao;
+            this.Album = album;
+        }
+
         [BsonId]
-        public ObjectId Id { get; set; }
+        public ObjectId Id { get; private set; }
         
         [BsonElement("name")]
         [BsonRequired]
@@ -25,5 +32,8 @@ namespace Crescer.Spotify.Infra.Entities
         [BsonElement("duration")]
         [BsonRequired]
         public double Duracao { get; private set; }
+
+        [BsonElement("album")]
+        public string Album { get; private set; }
     }
 }

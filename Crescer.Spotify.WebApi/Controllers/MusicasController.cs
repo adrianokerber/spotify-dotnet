@@ -88,7 +88,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         private Musica MapearDtoParaDominio(MusicaDto musica)
         {
-            var albumObtido = albumRepository.Obter(musica.IdAlbum.ToString());
+            var albumObtido = albumRepository.Obter(musica.IdAlbum);
             return new Musica(musica.Nome, musica.Duracao, albumObtido);
         }
     }

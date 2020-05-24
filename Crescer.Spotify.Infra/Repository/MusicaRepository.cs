@@ -35,12 +35,20 @@ namespace Crescer.Spotify.Infra.Repository
 
         public List<Musica> ListarMusicas()
         {
+            List<MusicaOrm> musicaOrmList = collection
+                .Find<MusicaOrm>(_ => true).ToList();
+            var musicas = musicaOrmList
+                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearMusicaOrmParaDomain));
             return musicas;
         }
 
         public List<Musica> ListarMusicas(List<string> idsMusica)
         {
-            return musicas.Where(x => idsMusica.Contains(x.Id.ToString())).ToList();
+            List<MusicaOrm> musicaOrmList = collection
+                .Find<MusicaOrm>(x => idsMusica.Contains(x.Id.ToString())).ToList();
+            var musicas = musicaOrmList
+                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearMusicaOrmParaDomain));
+            return musicas;
         }
 
         public Musica Obter(string id)
@@ -48,21 +56,20 @@ namespace Crescer.Spotify.Infra.Repository
             var musicaOrm = collection
                 .Find<MusicaOrm>(x => x.Id.Equals(ObjectId.Parse(id)))
                 .FirstOrDefault();
-            var musica = MapearEntityParaDomain(musicaOrm);
+            var musica = MapearMusicaOrmParaDomain(musicaOrm);
 
             return musica;
         }
 
         public void SalvarMusica(Musica musica)
         {
-            var music = new MusicaOrm(musica.Nome, musica.Duracao);
+            MusicaOrm music = new MusicaOrm(musica.Nome, musica.Duracao, musica.Album?.Id);
             collection.InsertOne(music);
         }
 
-        private Musica MapearEntityParaDomain(MusicaOrm musicaOrm)
+        private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)
         {
-            // TODO: Usar AutoMapper para converter
-            throw new NotImplementedException();
+            return new Musica(musicaOrm.Nome, musicaOrm.Duracao);
         }
     }
 }
