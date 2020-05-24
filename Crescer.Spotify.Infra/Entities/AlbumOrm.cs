@@ -9,13 +9,13 @@ namespace Crescer.Spotify.Infra.Entities
         public AlbumOrm(string nome)
         {
             Nome = nome;
-            IdsMusica = new List<ObjectId>();
+            ListaDeIdsDeMusica = new List<ObjectId>();
         }
 
-        public AlbumOrm(string nome, List<ObjectId> idsMusica)
+        public AlbumOrm(string nome, List<ObjectId> listaDeIdsDeMusica)
         {
             Nome = nome;
-            IdsMusica = idsMusica;
+            ListaDeIdsDeMusica = listaDeIdsDeMusica;
         }
 
         [BsonId]
@@ -26,6 +26,6 @@ namespace Crescer.Spotify.Infra.Entities
         public string Nome { get; private set; }
 
         [BsonElement("musicIds")]
-        public List<ObjectId> IdsMusica { get; private set; }
+        public List<ObjectId> ListaDeIdsDeMusica { get; private set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Crescer.Spotify.Infra.Repository
 {
     public class MusicaRepository : IMusicaRepository
     {
+        [Obsolete("This list will be removed once the method are migrated to use the DB")]
         private static List<Musica> musicas = new List<Musica>();
         private IMongoCollection<MusicaOrm> collection;
 
