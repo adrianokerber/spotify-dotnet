@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Crescer.Spotify.Infra.Entities
 {
-    class AlbumEntity
+    class AlbumOrm
     {
-        public AlbumEntity(string nome)
+        public AlbumOrm(string nome)
         {
             Nome = nome;
             IdsMusica = new List<ObjectId>();
         }
 
-        public AlbumEntity(string nome, List<ObjectId> idsMusica)
+        public AlbumOrm(string nome, List<ObjectId> idsMusica)
         {
             Nome = nome;
             IdsMusica = idsMusica;

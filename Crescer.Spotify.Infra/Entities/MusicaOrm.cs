@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Crescer.Spotify.Infra.Entities
 {
-    class MusicEntity
+    class MusicaOrm
     {
-        public MusicEntity(string nome, double duracao)
+        public MusicaOrm(string nome, double duracao)
         {
             this.Nome = nome;
             this.Duracao = duracao;

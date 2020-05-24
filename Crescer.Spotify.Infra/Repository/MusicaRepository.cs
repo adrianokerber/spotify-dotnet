@@ -12,7 +12,7 @@ namespace Crescer.Spotify.Infra.Repository
     public class MusicaRepository : IMusicaRepository
     {
         private static List<Musica> musicas = new List<Musica>();
-        private IMongoCollection<MusicEntity> collection;
+        private IMongoCollection<MusicaOrm> collection;
 
         public MusicaRepository()
         {
@@ -22,7 +22,7 @@ namespace Crescer.Spotify.Infra.Repository
             );
 
             var database = mongoClient.GetDatabase("spotifydotnet");
-            collection = database.GetCollection<MusicEntity>("music");
+            collection = database.GetCollection<MusicaOrm>("music");
         }
 
         public void AtualizarMusica(string id, Musica musica)
@@ -49,21 +49,21 @@ namespace Crescer.Spotify.Infra.Repository
 
         public Musica Obter(string id)
         {
-            var musicEntity = collection
-                .Find<MusicEntity>(x => x.Id.Equals(ObjectId.Parse(id)))
+            var musicaOrm = collection
+                .Find<MusicaOrm>(x => x.Id.Equals(ObjectId.Parse(id)))
                 .FirstOrDefault();
-            var musica = MapearEntityParaDomain(musicEntity);
+            var musica = MapearEntityParaDomain(musicaOrm);
 
             return musica;
         }
 
         public void SalvarMusica(Musica musica)
         {
-            var music = new MusicEntity(musica.Nome, musica.Duracao);
+            var music = new MusicaOrm(musica.Nome, musica.Duracao);
             collection.InsertOne(music);
         }
 
-        private Musica MapearEntityParaDomain(MusicEntity musicEntity)
+        private Musica MapearEntityParaDomain(MusicaOrm musicaOrm)
         {
             // TODO: Usar AutoMapper para converter
             throw new NotImplementedException();
