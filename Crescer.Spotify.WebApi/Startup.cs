@@ -14,6 +14,7 @@ using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Infra.Repository;
 using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.Infra;
+using Crescer.Spotify.Infra.Adapters;
 
 namespace Crescer.Spotify.WebApi
 {
@@ -35,6 +36,7 @@ namespace Crescer.Spotify.WebApi
                 c.SwaggerDoc("v1", new Info { Title = "Spotify API", Version = "v1" });
             });
             var connectionString = Configuration.GetConnectionString("BaseCrescer");
+            services.AddSingleton<MongoAdapter, MongoAdapter>();
             services.AddScoped<MusicaService, MusicaService>();
             services.AddScoped<AlbumService, AlbumService>();
             services.AddScoped<IMusicaRepository, MusicaRepository>();

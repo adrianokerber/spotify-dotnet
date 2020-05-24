@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
+using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -14,14 +15,9 @@ namespace Crescer.Spotify.Infra.Repository
         private static List<Musica> musicas = new List<Musica>();
         private IMongoCollection<MusicaOrm> collection;
 
-        public MusicaRepository()
+        public MusicaRepository(MongoAdapter mongoAdapter)
         {
-            // TODO: set client as dependency to be injected
-            var mongoClient = new MongoClient(
-                "mongodb+srv://spotifydotnetUser:2qNECVRjmAQHYsfx@clusterzero-09qhx.mongodb.net/test?retryWrites=true&w=majority"
-            );
-
-            var database = mongoClient.GetDatabase("spotifydotnet");
+            var database = mongoAdapter.Client.GetDatabase("spotifydotnet");
             collection = database.GetCollection<MusicaOrm>("music");
         }
 
