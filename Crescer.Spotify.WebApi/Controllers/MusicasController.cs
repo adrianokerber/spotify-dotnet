@@ -64,12 +64,17 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Put(string id, [FromBody] MusicaDto musicaRequest)
         {
-            // TODO: add notfound behaviour from DB
             // TODO: evaluate if we should return the updated object
             var musica = MapearDtoParaDominio(musicaRequest);
             var mensagens = musicaService.Validar(musica);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
+
+            var musicaSalva = musicaRepository.Obter(id);
+            if (musicaSalva == null)
+                return NotFound();
+
+            musica.Id = musicaSalva.Id;
 
             musicaRepository.AtualizarMusica(id, musica);
             return Ok();
@@ -83,7 +88,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         {
             // TODO: add notfound behaviour from DB
             musicaRepository.DeletarMusica(id);
-            return Ok();
+            return NoContent();
         }
 
         private Musica MapearDtoParaDominio(MusicaDto musica)
