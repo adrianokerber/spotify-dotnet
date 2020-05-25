@@ -27,13 +27,15 @@ namespace Crescer.Spotify.Infra.Repository
             if (musicaObtida != null)
             {
                 var musicaOrm = MapearDomainParaMusicaOrm(musicaObtida);
-                collection.ReplaceOne(x => x.Id.Equals(ObjectId.Parse(id)), musicaOrm);
+                var objectId = ConverterIdParaObjectId(id);
+                collection.ReplaceOne(x => x.Id.Equals(objectId), musicaOrm);
             }
         }
 
         public void DeletarMusica(string id)
         {
-            collection.DeleteOne(x => x.Id.Equals(ObjectId.Parse(id)));
+            var objectId = ConverterIdParaObjectId(id);
+            collection.DeleteOne(x => x.Id.Equals(objectId));
         }
 
         public List<Musica> ListarMusicas()
@@ -56,8 +58,9 @@ namespace Crescer.Spotify.Infra.Repository
 
         public Musica Obter(string id)
         {
+            var objectId = ConverterIdParaObjectId(id);
             var musicaOrm = collection
-                .Find<MusicaOrm>(x => x.Id.Equals(ObjectId.Parse(id)))
+                .Find<MusicaOrm>(x => x.Id.Equals(objectId))
                 .FirstOrDefault();
 
             if (musicaOrm == null)
@@ -73,6 +76,14 @@ namespace Crescer.Spotify.Infra.Repository
             collection.InsertOne(music);
         }
 
+        private ObjectId ConverterIdParaObjectId(string id)
+        {
+            if (ObjectId.TryParse(id, out ObjectId parsedId))
+                return parsedId;
+            else
+                return default;
+        }
+
         private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)
         {
             return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
@@ -80,7 +91,7 @@ namespace Crescer.Spotify.Infra.Repository
 
         private MusicaOrm MapearDomainParaMusicaOrm(Musica musica)
         {
-            return new MusicaOrm(musica.Nome, musica.Duracao, id: ObjectId.Parse(musica.Id));
+            return new MusicaOrm(musica.Nome, musica.Duracao, id: ConverterIdParaObjectId(musica.Id));
         }
     }
 }
