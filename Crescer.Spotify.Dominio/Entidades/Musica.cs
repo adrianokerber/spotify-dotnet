@@ -5,19 +5,21 @@ namespace Crescer.Spotify.Dominio.Entidades
     public class Musica
     {
         public Musica() { }
-        public Musica(string nome, double duracao)
+        public Musica(string nome, double duracao, string id = default)
         {
             this.Nome = nome;
             this.Duracao = duracao;
+            this.Id = id;
         }
-        public Musica(string nome, double duracao, Album album)
+        public Musica(string nome, double duracao, Album album, string id = default)
         {
             this.Nome = nome;
             this.Duracao = duracao;
             this.Album = album;
+            this.Id = id;
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nome { get; private set; }
         public double Duracao { get; private set; }
         public Album Album { get; set; }

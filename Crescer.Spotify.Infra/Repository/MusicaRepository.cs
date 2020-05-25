@@ -27,13 +27,13 @@ namespace Crescer.Spotify.Infra.Repository
             if (musicaObtida != null)
             {
                 var musicaOrm = MapearDomainParaMusicaOrm(musicaObtida);
-                collection.ReplaceOne(id, musicaOrm);
+                collection.ReplaceOne(x => x.Id.Equals(ObjectId.Parse(id)), musicaOrm);
             }
         }
 
         public void DeletarMusica(string id)
         {
-            collection.DeleteOne(id);
+            collection.DeleteOne(x => x.Id.Equals(ObjectId.Parse(id)));
         }
 
         public List<Musica> ListarMusicas()
@@ -59,8 +59,11 @@ namespace Crescer.Spotify.Infra.Repository
             var musicaOrm = collection
                 .Find<MusicaOrm>(x => x.Id.Equals(ObjectId.Parse(id)))
                 .FirstOrDefault();
-            var musica = MapearMusicaOrmParaDomain(musicaOrm);
 
+            if (musicaOrm == null)
+                return null;
+
+            var musica = MapearMusicaOrmParaDomain(musicaOrm);
             return musica;
         }
 
@@ -72,12 +75,12 @@ namespace Crescer.Spotify.Infra.Repository
 
         private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)
         {
-            return new Musica(musicaOrm.Nome, musicaOrm.Duracao);
+            return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
         }
 
         private MusicaOrm MapearDomainParaMusicaOrm(Musica musica)
         {
-            return new MusicaOrm(musica.Nome, musica.Duracao);
+            return new MusicaOrm(musica.Nome, musica.Duracao, id: ObjectId.Parse(musica.Id));
         }
     }
 }

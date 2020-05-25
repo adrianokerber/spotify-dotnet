@@ -1,25 +1,23 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Crescer.Spotify.Infra.Entities
 {
     class MusicaOrm
     {
-        public MusicaOrm(string nome, double duracao)
+        public MusicaOrm(string nome, double duracao, ObjectId id = default)
         {
             this.Nome = nome;
             this.Duracao = duracao;
+            this.Id = id;
         }
 
-        public MusicaOrm(string nome, double duracao, string album)
+        public MusicaOrm(string nome, double duracao, string album, ObjectId id = default)
         {
             this.Nome = nome;
             this.Duracao = duracao;
             this.Album = album;
+            this.Id = id;
         }
 
         [BsonId]

@@ -39,7 +39,11 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(string id)
         {
-            return Ok(musicaRepository.Obter(id));
+            var musica = musicaRepository.Obter(id);
+            if (musica == null)
+                return NotFound();
+
+            return Ok(musica);
         }
 
         // POST api/musicas
