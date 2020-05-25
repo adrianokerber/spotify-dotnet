@@ -26,14 +26,14 @@ namespace Crescer.Spotify.WebApi.Controllers
             return Ok();
         }
 
-        // GET api/values/5
+        // GET api/album/5
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
             return Ok(albumRepository.Obter(id));
         }
 
-        // POST api/values
+        // POST api/album
         [HttpPost]
         public IActionResult Post([FromBody]AlbumDto albumRequest)
         {
@@ -46,7 +46,7 @@ namespace Crescer.Spotify.WebApi.Controllers
             return Ok();
         }
 
-        // PUT api/values/5
+        // PUT api/album/5
         [HttpPut("{id}")]
         public IActionResult Put(string id, [FromBody]AlbumDto albumRequest)
         {
@@ -59,7 +59,7 @@ namespace Crescer.Spotify.WebApi.Controllers
             return Ok();
         }
 
-        // DELETE api/values/5
+        // DELETE api/album/5
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
