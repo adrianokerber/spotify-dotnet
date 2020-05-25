@@ -12,8 +12,6 @@ namespace Crescer.Spotify.Infra.Repository
 {
     public class MusicaRepository : IMusicaRepository
     {
-        [Obsolete("This list will be removed once the methods are migrated to use the DB")]
-        private static List<Musica> musicas = new List<Musica>();
         private IMongoCollection<MusicaOrm> collection;
 
         public MusicaRepository(MongoAdapter mongoAdapter)
@@ -26,12 +24,16 @@ namespace Crescer.Spotify.Infra.Repository
         {
             var musicaObtida = Obter(id);
             musicaObtida?.Atualizar(musica);
+            if (musicaObtida != null)
+            {
+                var musicaOrm = MapearDomainParaMusicaOrm(musicaObtida);
+                collection.ReplaceOne(id, musicaOrm);
+            }
         }
 
         public void DeletarMusica(string id)
         {
-            var musica = this.Obter(id);
-            musicas.Remove(musica);
+            collection.DeleteOne(id);
         }
 
         public List<Musica> ListarMusicas()
@@ -71,6 +73,11 @@ namespace Crescer.Spotify.Infra.Repository
         private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)
         {
             return new Musica(musicaOrm.Nome, musicaOrm.Duracao);
+        }
+
+        private MusicaOrm MapearDomainParaMusicaOrm(Musica musica)
+        {
+            return new MusicaOrm(musica.Nome, musica.Duracao);
         }
     }
 }
