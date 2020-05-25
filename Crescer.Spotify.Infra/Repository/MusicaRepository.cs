@@ -12,14 +12,14 @@ namespace Crescer.Spotify.Infra.Repository
 {
     public class MusicaRepository : IMusicaRepository
     {
-        [Obsolete("This list will be removed once the method are migrated to use the DB")]
+        [Obsolete("This list will be removed once the methods are migrated to use the DB")]
         private static List<Musica> musicas = new List<Musica>();
         private IMongoCollection<MusicaOrm> collection;
 
         public MusicaRepository(MongoAdapter mongoAdapter)
         {
             var database = mongoAdapter.Client.GetDatabase("spotifydotnet");
-            collection = database.GetCollection<MusicaOrm>("music");
+            collection = database.GetCollection<MusicaOrm>("musics");
         }
 
         public void AtualizarMusica(string id, Musica musica)
