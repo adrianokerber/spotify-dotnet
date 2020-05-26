@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
-using MongoDB.Bson;
+using Crescer.Spotify.Infra.Utils;
 using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Crescer.Spotify.Infra.Repository
 {
@@ -27,14 +27,14 @@ namespace Crescer.Spotify.Infra.Repository
             if (musicaObtida != null)
             {
                 var musicaOrm = MapearDomainParaMusicaOrm(musicaObtida);
-                var objectId = ConverterIdParaObjectId(id);
+                var objectId = id.ToObjectId();
                 collection.ReplaceOne(x => x.Id.Equals(objectId), musicaOrm);
             }
         }
 
         public void DeletarMusica(string id)
         {
-            var objectId = ConverterIdParaObjectId(id);
+            var objectId = id.ToObjectId();
             collection.DeleteOne(x => x.Id.Equals(objectId));
         }
 
@@ -58,7 +58,7 @@ namespace Crescer.Spotify.Infra.Repository
 
         public Musica Obter(string id)
         {
-            var objectId = ConverterIdParaObjectId(id);
+            var objectId = id.ToObjectId();
             var musicaOrm = collection
                 .Find<MusicaOrm>(x => x.Id.Equals(objectId))
                 .FirstOrDefault();
@@ -76,14 +76,6 @@ namespace Crescer.Spotify.Infra.Repository
             collection.InsertOne(music);
         }
 
-        private ObjectId ConverterIdParaObjectId(string id)
-        {
-            if (ObjectId.TryParse(id, out ObjectId parsedId))
-                return parsedId;
-            else
-                return default;
-        }
-
         private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)
         {
             return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
@@ -91,7 +83,7 @@ namespace Crescer.Spotify.Infra.Repository
 
         private MusicaOrm MapearDomainParaMusicaOrm(Musica musica)
         {
-            return new MusicaOrm(musica.Nome, musica.Duracao, id: ConverterIdParaObjectId(musica.Id));
+            return new MusicaOrm(musica.Nome, musica.Duracao, id: musica.Id.ToObjectId());
         }
     }
 }

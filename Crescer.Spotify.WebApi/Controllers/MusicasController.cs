@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Crescer.Spotify.Dominio.Contratos;
+﻿using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
-using Crescer.Spotify.Infra;
 using Crescer.Spotify.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
