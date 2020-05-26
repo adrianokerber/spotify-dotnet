@@ -3,6 +3,7 @@ using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.WebApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crescer.Spotify.WebApi.Controllers
@@ -20,57 +21,80 @@ namespace Crescer.Spotify.WebApi.Controllers
             this.albumService = albumService;
         }
 
+        // GET api/albuns
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok(albumRepository.ListarAlbuns());
         }
 
-        // GET api/album/5
+        // GET api/albuns/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(string id)
         {
-            return Ok(albumRepository.Obter(id));
+            var album = albumRepository.Obter(id);
+            if (album == null)
+                return NotFound();
+
+            return Ok(album);
         }
 
-        // POST api/album
+        // POST api/albuns
         [HttpPost]
-        public IActionResult Post([FromBody]AlbumDto albumRequest)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Post([FromBody] AlbumDto albumRequest)
         {
             var album = MapearDtoParaDominio(albumRequest);
             var mensagens = albumService.Validar(album);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            albumRepository.SalvarAlbum(album);            
-            return Ok();
+            albumRepository.SalvarAlbum(album);
+            return StatusCode(201);
         }
 
-        // PUT api/album/5
+        // PUT api/albuns/5
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody]AlbumDto albumRequest)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(string id, [FromBody] AlbumDto albumRequest)
         {
+            // TODO: evaluate if we should return the updated object
             var album = MapearDtoParaDominio(albumRequest);
             var mensagens = albumService.Validar(album);
             if (mensagens.Count > 0)
-               return BadRequest(mensagens);
+                return BadRequest(mensagens);
+
+            var albumSalvo = albumRepository.Obter(id);
+            if (albumSalvo == null)
+                return NotFound();
+
+            album.Id = albumSalvo.Id;
 
             albumRepository.AtualizarAlbum(id, album);
             return Ok();
         }
 
-        // DELETE api/album/5
+        // DELETE api/albuns/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Delete(string id)
         {
+            // TODO: add notfound behaviour from DB
             albumRepository.DeletarAlbum(id);
-            return Ok();
+            return NoContent();
         }
 
-        private Album MapearDtoParaDominio(AlbumDto album)
+        private Album MapearDtoParaDominio(AlbumDto albumDto)
         {
             List<Musica> musicas = musicaRepository.ListarMusicas(new List<string>() { "1", "2" });
-            return new Album(album.Nome, musicas);
+            return new Album(albumDto.Nome, musicas);
         }
 
     }

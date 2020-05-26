@@ -4,6 +4,7 @@ using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Crescer.Spotify.WebApi.Controllers
 {
@@ -11,6 +12,7 @@ namespace Crescer.Spotify.WebApi.Controllers
     public class MusicasController : Controller
     {
         private IMusicaRepository musicaRepository;
+        [Obsolete("This reference can be removed since we orchestrate albums directly on AlbunsController")]
         private IAlbumRepository albumRepository;
         private MusicaService musicaService;
 
@@ -20,6 +22,7 @@ namespace Crescer.Spotify.WebApi.Controllers
             this.musicaService = musicaService;
             this.albumRepository = albumRepository;
         }
+
         // GET api/musicas
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -90,10 +93,10 @@ namespace Crescer.Spotify.WebApi.Controllers
             return NoContent();
         }
 
-        private Musica MapearDtoParaDominio(MusicaDto musica)
+        private Musica MapearDtoParaDominio(MusicaDto musicaDto)
         {
-            var albumObtido = albumRepository.Obter(musica.IdAlbum);
-            return new Musica(musica.Nome, musica.Duracao, albumObtido);
+            var albumObtido = albumRepository.Obter(musicaDto.IdAlbum);
+            return new Musica(musicaDto.Nome, musicaDto.Duracao, albumObtido);
         }
     }
 }

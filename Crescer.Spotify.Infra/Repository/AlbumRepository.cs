@@ -13,8 +13,6 @@ namespace Crescer.Spotify.Infra.Repository
 {
     public class AlbumRepository : IAlbumRepository
     {
-        [Obsolete("This list will be removed once the methods are migrated to use the DB")]
-        private static List<Album> albuns = new List<Album>();
         private IMongoCollection<AlbumOrm> collection;
         private IMusicaRepository musicaRepository;
 
@@ -28,12 +26,18 @@ namespace Crescer.Spotify.Infra.Repository
         {
             var albumObtido = Obter(id);
             albumObtido?.Atualizar(album);
+            if (albumObtido != null)
+            {
+                var albumOrm = MapearDomainParaOrm(albumObtido);
+                var objectId = id.ToObjectId();
+                collection.ReplaceOne(x => x.Id.Equals(objectId), albumOrm);
+            }
         }
 
         public void DeletarAlbum(string id)
         {
-            var album = this.Obter(id);
-            albuns.Remove(album);
+            var objectId = id.ToObjectId();
+            collection.DeleteOne(x => x.Id.Equals(objectId));
         }
 
         public List<Album> ListarAlbuns()
