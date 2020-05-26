@@ -93,7 +93,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         private Album MapearDtoParaDominio(AlbumDto albumDto)
         {
-            List<Musica> musicas = musicaRepository.ListarMusicas(new List<string>() { "1", "2" });
+            List<Musica> musicas = musicaRepository.ListarMusicas(albumDto.IdsMusicas);
             return new Album(albumDto.Nome, musicas);
         }
 

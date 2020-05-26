@@ -20,6 +20,7 @@ namespace Crescer.Spotify.Infra.Repository
         {
             var database = mongoAdapter.Client.GetDatabase("spotifydotnet");
             collection = database.GetCollection<AlbumOrm>("albums");
+            //this.musicaRepository = musicaRepository;
         }
 
         public void AtualizarAlbum(string id, Album album)
