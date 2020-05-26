@@ -26,7 +26,7 @@ namespace Crescer.Spotify.Infra.Repository
             musicaObtida?.Atualizar(musica);
             if (musicaObtida != null)
             {
-                var musicaOrm = MapearDomainParaMusicaOrm(musicaObtida);
+                var musicaOrm = MapearDomainParaOrm(musicaObtida);
                 var objectId = id.ToObjectId();
                 collection.ReplaceOne(x => x.Id.Equals(objectId), musicaOrm);
             }
@@ -43,7 +43,7 @@ namespace Crescer.Spotify.Infra.Repository
             List<MusicaOrm> musicaOrmList = collection
                 .Find<MusicaOrm>(_ => true).ToList();
             var musicas = musicaOrmList
-                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearMusicaOrmParaDomain));
+                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
             return musicas;
         }
 
@@ -52,7 +52,7 @@ namespace Crescer.Spotify.Infra.Repository
             List<MusicaOrm> musicaOrmList = collection
                 .Find<MusicaOrm>(x => idsMusica.Contains(x.Id.ToString())).ToList();
             var musicas = musicaOrmList
-                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearMusicaOrmParaDomain));
+                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
             return musicas;
         }
 
@@ -66,22 +66,22 @@ namespace Crescer.Spotify.Infra.Repository
             if (musicaOrm == null)
                 return null;
 
-            var musica = MapearMusicaOrmParaDomain(musicaOrm);
+            var musica = MapearOrmParaDomain(musicaOrm);
             return musica;
         }
 
         public void SalvarMusica(Musica musica)
         {
-            MusicaOrm musicaOrm = MapearDomainParaMusicaOrm(musica);
+            MusicaOrm musicaOrm = MapearDomainParaOrm(musica);
             collection.InsertOne(musicaOrm);
         }
 
-        private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)
+        private Musica MapearOrmParaDomain(MusicaOrm musicaOrm)
         {
             return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
         }
 
-        private MusicaOrm MapearDomainParaMusicaOrm(Musica musica)
+        private MusicaOrm MapearDomainParaOrm(Musica musica)
         {
             return new MusicaOrm(musica.Nome, musica.Duracao, id: musica.Id.ToObjectId());
         }

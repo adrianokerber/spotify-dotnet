@@ -48,7 +48,8 @@ namespace Crescer.Spotify.Infra.Repository
 
         public void SalvarAlbum(Album album)
         {
-            albuns.Add(album);
+            AlbumOrm albumOrm = MapearDomainParaOrm(album);
+            collection.InsertOne(albumOrm);
         }
 
         private Album MapearOrmParaDomain(AlbumOrm albumOrm)
