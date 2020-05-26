@@ -4,7 +4,6 @@ namespace Crescer.Spotify.Dominio.Entidades
 {
     public class Musica
     {
-        public Musica() { }
         public Musica(string nome, double duracao, string id = default)
         {
             this.Nome = nome;

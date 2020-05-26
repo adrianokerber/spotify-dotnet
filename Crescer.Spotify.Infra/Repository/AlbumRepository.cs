@@ -75,13 +75,13 @@ namespace Crescer.Spotify.Infra.Repository
             var listaDeIdDeMusica = albumOrm.ListaDeIdsDeMusica
                 .ConvertAll(new Converter<ObjectId, string>(x => x.ToString()));
             var musicas = musicaRepository.ListarMusicas(listaDeIdDeMusica);
-            return new Album(albumOrm.Nome, musicas);
+            return new Album(albumOrm.Nome, musicas, id: albumOrm.Id.ToString());
         }
 
         private AlbumOrm MapearDomainParaOrm(Album album)
         {
             var musicaIds = album.Musicas.ConvertAll(new Converter<Musica, ObjectId>(x => x.Id.ToObjectId()));
-            return new AlbumOrm(album.Nome, musicaIds);
+            return new AlbumOrm(album.Nome, musicaIds, id: album.Id.ToObjectId());
         }
     }
 }

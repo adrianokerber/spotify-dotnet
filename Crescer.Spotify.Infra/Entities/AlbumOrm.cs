@@ -6,16 +6,18 @@ namespace Crescer.Spotify.Infra.Entities
 {
     class AlbumOrm
     {
-        public AlbumOrm(string nome)
+        public AlbumOrm(string nome, ObjectId id = default)
         {
-            Nome = nome;
-            ListaDeIdsDeMusica = new List<ObjectId>();
+            this.Nome = nome;
+            this.ListaDeIdsDeMusica = new List<ObjectId>();
+            this.Id = id;
         }
 
-        public AlbumOrm(string nome, List<ObjectId> listaDeIdsDeMusica)
+        public AlbumOrm(string nome, List<ObjectId> listaDeIdsDeMusica, ObjectId id = default)
         {
-            Nome = nome;
-            ListaDeIdsDeMusica = listaDeIdsDeMusica;
+            this.Nome = nome;
+            this.ListaDeIdsDeMusica = listaDeIdsDeMusica;
+            this.Id = id;
         }
 
         [BsonId]
