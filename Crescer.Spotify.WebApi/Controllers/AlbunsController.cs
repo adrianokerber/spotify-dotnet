@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
@@ -93,7 +94,11 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         private Album MapearDtoParaDominio(AlbumDto albumDto)
         {
-            List<Musica> musicas = musicaRepository.ListarMusicas(albumDto.IdsMusicas);
+            List<Musica> musicas = new List<Musica>();
+            var albumTemMusicas = !albumDto.IdsMusicas?.Any() ?? false;
+            if (albumTemMusicas)
+                musicas = musicaRepository.ListarMusicas(albumDto.IdsMusicas);
+
             return new Album(albumDto.Nome, musicas);
         }
 

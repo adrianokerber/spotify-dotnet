@@ -3,6 +3,7 @@ using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
 using Crescer.Spotify.Infra.Utils;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -49,8 +50,14 @@ namespace Crescer.Spotify.Infra.Repository
 
         public List<Musica> ListarMusicas(List<string> idsMusica)
         {
+            var objectIdsDeMusicas = idsMusica.ConvertAll(
+                new Converter<string, ObjectId>(StringMongoExtensions.ToObjectId)
+                );
+            
+            var encontrarTodasAsMusicasDoArray = Builders<MusicaOrm>.Filter.In(x => x.Id, objectIdsDeMusicas);
+
             List<MusicaOrm> musicaOrmList = collection
-                .Find<MusicaOrm>(x => idsMusica.Contains(x.Id.ToString())).ToList();
+                .Find<MusicaOrm>(encontrarTodasAsMusicasDoArray).ToList();
             var musicas = musicaOrmList
                 .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
             return musicas;
