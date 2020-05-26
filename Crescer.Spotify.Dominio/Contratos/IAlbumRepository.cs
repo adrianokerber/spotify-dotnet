@@ -8,7 +8,7 @@ namespace Crescer.Spotify.Dominio.Contratos
         void SalvarAlbum(Album album);
         void AtualizarAlbum(string id, Album album);
         void DeletarAlbum(string id);
-        List<Album> ListarAlbum();
+        List<Album> ListarAlbuns();
         Album Obter(string id);
     }
 }

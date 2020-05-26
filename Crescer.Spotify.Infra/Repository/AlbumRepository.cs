@@ -36,14 +36,27 @@ namespace Crescer.Spotify.Infra.Repository
             albuns.Remove(album);
         }
 
-        public List<Album> ListarAlbum()
+        public List<Album> ListarAlbuns()
         {
+            List<AlbumOrm> albumOrmList = collection
+                .Find<AlbumOrm>(_ => true).ToList();
+            var albuns = albumOrmList
+                .ConvertAll(new Converter<AlbumOrm, Album>(MapearOrmParaDomain));
             return albuns;
         }
 
         public Album Obter(string id)
         {
-            return albuns.Where(x => x.Id.ToString() == id).FirstOrDefault();
+            var objectId = id.ToObjectId();
+            var albumOrm = collection
+                .Find<AlbumOrm>(x => x.Id.Equals(objectId))
+                .FirstOrDefault();
+
+            if (albumOrm == null)
+                return null;
+
+            var album = MapearOrmParaDomain(albumOrm);
+            return album;
         }
 
         public void SalvarAlbum(Album album)

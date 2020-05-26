@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Crescer.Spotify.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class AlbumsController : Controller
+    public class AlbunsController : Controller
     {
         private IAlbumRepository albumRepository;
         private IMusicaRepository musicaRepository;
         private AlbumService albumService;
-        public AlbumsController(IAlbumRepository albumRepository, IMusicaRepository musicaRepository, AlbumService albumService)
+        public AlbunsController(IAlbumRepository albumRepository, IMusicaRepository musicaRepository, AlbumService albumService)
         {
             this.albumRepository = albumRepository;
             this.musicaRepository = musicaRepository;
