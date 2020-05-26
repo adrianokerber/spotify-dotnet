@@ -1,9 +1,15 @@
-# Spotify or not here we go
+# Spotify a simple CRUD - from Crescer
+
+This is my first project with [.NET](https://dotnet.microsoft.com/) creating a web service (ASP.NET) in a simple CRUD.
+
+NOTE: This repository is an increment from the base project of [Crescer](https://crescer.cwi.com.br/).
 
 ### Roadmap
 
-- [ ] Add MongoDB to store all data
+The following are the improvement goals from the base project.
+
+- [x] Add MongoDB to store all data
     - [x] MusicaRepository
-    - [ ] AlbumRepository
+    - [x] AlbumRepository
 - [x] Enhance RESTful API to follow REST principles (eg: when creating an entity we should return 201 instead of the simple 200)
-- [ ] Return DTOs instead of entity classes on Controller returns
+- [ ] Return DTOs instead of entity classes on Controller responses
