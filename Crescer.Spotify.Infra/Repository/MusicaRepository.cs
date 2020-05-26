@@ -72,8 +72,8 @@ namespace Crescer.Spotify.Infra.Repository
 
         public void SalvarMusica(Musica musica)
         {
-            MusicaOrm music = new MusicaOrm(musica.Nome, musica.Duracao, musica.Album?.Id);
-            collection.InsertOne(music);
+            MusicaOrm musicaOrm = MapearDomainParaMusicaOrm(musica);
+            collection.InsertOne(musicaOrm);
         }
 
         private Musica MapearMusicaOrmParaDomain(MusicaOrm musicaOrm)

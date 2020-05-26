@@ -5,6 +5,8 @@ using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
+using Crescer.Spotify.Infra.Utils;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Crescer.Spotify.Infra.Repository
@@ -14,8 +16,9 @@ namespace Crescer.Spotify.Infra.Repository
         [Obsolete("This list will be removed once the methods are migrated to use the DB")]
         private static List<Album> albuns = new List<Album>();
         private IMongoCollection<AlbumOrm> collection;
+        private IMusicaRepository musicaRepository;
 
-        public AlbumRepository(MongoAdapter mongoAdapter)
+        public AlbumRepository(MongoAdapter mongoAdapter, IMusicaRepository musicaRepository)
         {
             var database = mongoAdapter.Client.GetDatabase("spotifydotnet");
             collection = database.GetCollection<AlbumOrm>("albums");
@@ -46,6 +49,20 @@ namespace Crescer.Spotify.Infra.Repository
         public void SalvarAlbum(Album album)
         {
             albuns.Add(album);
+        }
+
+        private Album MapearOrmParaDomain(AlbumOrm albumOrm)
+        {
+            var listaDeIdDeMusica = albumOrm.ListaDeIdsDeMusica
+                .ConvertAll(new Converter<ObjectId, string>(x => x.ToString()));
+            var musicas = musicaRepository.ListarMusicas(listaDeIdDeMusica);
+            return new Album(albumOrm.Nome, musicas);
+        }
+
+        private AlbumOrm MapearDomainParaOrm(Album album)
+        {
+            var musicaIds = album.Musicas.ConvertAll(new Converter<Musica, ObjectId>(x => x.Id.ToObjectId()));
+            return new AlbumOrm(album.Nome, musicaIds);
         }
     }
 }
