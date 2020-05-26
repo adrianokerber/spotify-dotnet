@@ -12,15 +12,12 @@ namespace Crescer.Spotify.WebApi.Controllers
     public class MusicasController : Controller
     {
         private IMusicaRepository musicaRepository;
-        [Obsolete("This reference can be removed since we orchestrate albums directly on AlbunsController")]
-        private IAlbumRepository albumRepository;
         private MusicaService musicaService;
 
-        public MusicasController(IMusicaRepository musicaRepository, MusicaService musicaService, IAlbumRepository albumRepository)
+        public MusicasController(IMusicaRepository musicaRepository, MusicaService musicaService)
         {
             this.musicaRepository = musicaRepository;
             this.musicaService = musicaService;
-            this.albumRepository = albumRepository;
         }
 
         // GET api/musicas
@@ -95,9 +92,7 @@ namespace Crescer.Spotify.WebApi.Controllers
 
         private Musica MapearDtoParaDominio(MusicaDto musicaDto)
         {
-            // TODO: should we remove albumRepository from here?
-            var albumObtido = albumRepository.Obter(musicaDto.IdAlbum);
-            return new Musica(musicaDto.Nome, musicaDto.Duracao, albumObtido);
+            return new Musica(musicaDto.Nome, musicaDto.Duracao);
         }
     }
 }
