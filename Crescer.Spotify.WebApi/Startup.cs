@@ -36,7 +36,7 @@ namespace Crescer.Spotify.WebApi
                 c.SwaggerDoc("v1", new Info { Title = "Spotify API", Version = "v1" });
             });
             var connectionString = Configuration.GetConnectionString("BaseCrescer");
-            services.AddSingleton<MongoAdapter, MongoAdapter>();
+            services.AddScoped<MongoAdapter, MongoAdapter>();
             services.AddScoped<MusicaService, MusicaService>();
             services.AddScoped<AlbumService, AlbumService>();
             services.AddScoped<IMusicaRepository, MusicaRepository>();

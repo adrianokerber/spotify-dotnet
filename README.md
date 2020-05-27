@@ -15,3 +15,4 @@ The following are the improvement goals from the base project.
 - [ ] Add relations on MongoDB
 - [ ] Return DTOs instead of entity classes on Controller responses
 - [ ] Add new Unit Tests for invalid data such as invalid or missing **ObjectId**
+- [ ] Change MongoAdapter to use inheritage. Each children class should return the DB connection via DI
