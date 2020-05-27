@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Crescer.Spotify.Dominio.Contratos;
+using Crescer.Spotify.Dominio.Servicos;
+using Crescer.Spotify.Infra.Adapters;
+using Crescer.Spotify.Infra.Repository;
+using Crescer.Spotify.Infra.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.AspNetCore.Rewrite;
-using Crescer.Spotify.Dominio.Contratos;
-using Crescer.Spotify.Infra.Repository;
-using Crescer.Spotify.Dominio.Servicos;
-using Crescer.Spotify.Infra;
-using Crescer.Spotify.Infra.Adapters;
 
 namespace Crescer.Spotify.WebApi
 {
@@ -35,7 +28,8 @@ namespace Crescer.Spotify.WebApi
             {
                 c.SwaggerDoc("v1", new Info { Title = "Spotify API", Version = "v1" });
             });
-            var connectionString = Configuration.GetConnectionString("BaseCrescer");
+            var connectionString = Configuration.GetConnectionString("MongoConnectionString");
+            services.AddSingleton<MongoConnectionConfigs>(new MongoConnectionConfigs(connectionString));
             services.AddScoped<MongoAdapter, MongoAdapter>();
             services.AddScoped<MusicaService, MusicaService>();
             services.AddScoped<AlbumService, AlbumService>();
