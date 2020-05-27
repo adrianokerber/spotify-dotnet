@@ -3,7 +3,7 @@ using System;
 
 namespace Crescer.Spotify.Infra.Utils
 {
-    public static class StringMongoExtensions
+    public static class MongoStringExtensions
     {
         /*
          * It converts the string to ObjectId if possible, otherwise returns the default value

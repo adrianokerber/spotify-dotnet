@@ -52,7 +52,7 @@ namespace Crescer.Spotify.Infra.Repository
         public List<Musica> ListarMusicas(List<string> idsMusica)
         {
             var objectIdsDeMusicas = idsMusica.ConvertAll(
-                new Converter<string, ObjectId>(StringMongoExtensions.ToObjectId)
+                new Converter<string, ObjectId>(MongoStringExtensions.ToObjectId)
                 );
             
             var encontrarTodasAsMusicasDoArray = Builders<MusicaOrm>.Filter.In(x => x.Id, objectIdsDeMusicas);
