@@ -12,4 +12,6 @@ The following are the improvement goals from the base project.
     - [x] MusicaRepository
     - [x] AlbumRepository
 - [x] Enhance RESTful API to follow REST principles (eg: when creating an entity we should return 201 instead of the simple 200)
+- [ ] Add relations on MongoDB
 - [ ] Return DTOs instead of entity classes on Controller responses
+- [ ] Add new Unit Tests for invalid data such as invalid or missing **ObjectId**
