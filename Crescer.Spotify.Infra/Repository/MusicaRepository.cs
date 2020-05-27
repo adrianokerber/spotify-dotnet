@@ -17,9 +17,7 @@ namespace Crescer.Spotify.Infra.Repository
 
         public MusicaRepository(MongoAdapter mongoAdapter)
         {
-            // TODO: DB should be injected by a new classe inherited from MongoAdapter
-            var database = mongoAdapter.Client.GetDatabase("spotifydotnet");
-            collection = database.GetCollection<MusicaOrm>("musics");
+            collection = mongoAdapter.GetCollection<MusicaOrm>("musics");
         }
 
         public void AtualizarMusica(string id, Musica musica)

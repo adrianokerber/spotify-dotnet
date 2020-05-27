@@ -18,8 +18,7 @@ namespace Crescer.Spotify.Infra.Repository
 
         public AlbumRepository(MongoAdapter mongoAdapter, IMusicaRepository musicaRepository)
         {
-            var database = mongoAdapter.Client.GetDatabase("spotifydotnet");
-            collection = database.GetCollection<AlbumOrm>("albums");
+            collection = collection = mongoAdapter.GetCollection<AlbumOrm>("albums");
             this.musicaRepository = musicaRepository;
         }
 

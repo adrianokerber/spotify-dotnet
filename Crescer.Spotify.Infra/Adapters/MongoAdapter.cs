@@ -1,9 +1,10 @@
 ﻿using Crescer.Spotify.Infra.Utils;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Crescer.Spotify.Infra.Adapters
 {
-    public class MongoAdapter
+    public abstract class MongoAdapter
     {
         public MongoAdapter(MongoConnectionConfigs connectionConfigs)
         {
@@ -12,6 +13,8 @@ namespace Crescer.Spotify.Infra.Adapters
             );
         }
 
-        public MongoClient Client { get; private set; }
+        protected MongoClient Client { get; private set; }
+
+        public abstract IMongoCollection<T> GetCollection<T>(string name);
     }
 }

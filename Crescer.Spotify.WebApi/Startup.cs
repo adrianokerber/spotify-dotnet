@@ -30,7 +30,7 @@ namespace Crescer.Spotify.WebApi
             });
             var connectionString = Configuration.GetConnectionString("MongoConnectionString");
             services.AddSingleton<MongoConnectionConfigs>(new MongoConnectionConfigs(connectionString));
-            services.AddScoped<MongoAdapter, MongoAdapter>();
+            services.AddScoped<MongoAdapter, SpotifyMongoAdapter>();
             services.AddScoped<MusicaService, MusicaService>();
             services.AddScoped<AlbumService, AlbumService>();
             services.AddScoped<IMusicaRepository, MusicaRepository>();
