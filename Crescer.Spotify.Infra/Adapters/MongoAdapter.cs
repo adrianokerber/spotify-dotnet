@@ -1,20 +1,22 @@
 ﻿using Crescer.Spotify.Infra.Utils;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Crescer.Spotify.Infra.Adapters
 {
-    public abstract class MongoAdapter
+    public class MongoAdapter
     {
-        public MongoAdapter(MongoConnectionConfigs connectionConfigs)
+        private readonly IMongoDatabase database;
+
+        public MongoAdapter(MongoSettings connectionConfigs)
         {
-            this.Client = new MongoClient(
-                connectionConfigs.ConnectionString
-            );
+            var (connectionString, databaseName) = connectionConfigs;
+            database = new MongoClient(connectionString)
+                .GetDatabase(databaseName);
         }
 
-        protected MongoClient Client { get; private set; }
-
-        public abstract IMongoCollection<T> GetCollection<T>(string name);
+        public IMongoCollection<T> GetCollection<T>(string name)
+        {
+            return database.GetCollection<T>(name);
+        }
     }
 }
