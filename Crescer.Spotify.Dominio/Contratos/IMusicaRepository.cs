@@ -9,7 +9,8 @@ namespace Crescer.Spotify.Dominio.Contratos
         void AtualizarMusica(string id, Musica musica);
         void DeletarMusica(string id);
         List<Musica> ListarMusicas();
-        List<Musica> ListarMusicas(List<string> idsMusica);
+        List<Musica> ListarMusicas(List<string> idsDeMusicas);
+        List<Musica> ListarMusicasPorNome(List<string> nomesDeMusicas);
         Musica Obter(string id);
     }
 }

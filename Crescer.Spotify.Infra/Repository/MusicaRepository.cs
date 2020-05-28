@@ -62,6 +62,17 @@ namespace Crescer.Spotify.Infra.Repository
             return musicas;
         }
 
+        public List<Musica> ListarMusicasPorNome(List<string> nomesDeMusicas)
+        {
+            var encontrarTodasAsMusicasPorNome = Builders<MusicaOrm>.Filter.In(x => x.Nome, nomesDeMusicas);
+
+            List<MusicaOrm> musicaOrmList = collection
+                .Find<MusicaOrm>(encontrarTodasAsMusicasPorNome).ToList();
+            var musicas = musicaOrmList
+                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
+            return musicas;
+        }
+
         public Musica Obter(string id)
         {
             var objectId = id.ToObjectId();

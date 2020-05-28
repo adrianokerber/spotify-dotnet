@@ -92,12 +92,18 @@ namespace Crescer.Spotify.WebApi.Controllers
             return NoContent();
         }
 
+        // TODO: move all mappers to proper mapper classes
         private Album MapearDtoParaDominio(AlbumDto albumDto)
         {
+            // TODO: move this logic to usecase
+            // TODO: change to store musics that could not be found on repository
             List<Musica> musicas = new List<Musica>();
-            var albumTemMusicas = albumDto.IdsMusicas?.Any() ?? false;
+            var albumTemMusicas = albumDto.Musicas?.Any() ?? false;
             if (albumTemMusicas)
-                musicas = musicaRepository.ListarMusicas(albumDto.IdsMusicas);
+            {
+                var nomesDeMusicas = albumDto.Musicas.Select(x => x.Nome).ToList();
+                musicas = musicaRepository.ListarMusicasPorNome(nomesDeMusicas);
+            }
 
             return new Album(albumDto.Nome, musicas);
         }
