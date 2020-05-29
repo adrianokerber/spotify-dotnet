@@ -1,10 +1,9 @@
 ﻿using Crescer.Spotify.Dominio.Contratos;
-using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
+using Crescer.Spotify.WebApi.Mappers;
 using Crescer.Spotify.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Crescer.Spotify.WebApi.Controllers
 {
@@ -47,7 +46,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Post([FromBody] MusicaDto musicaRequest)
         {
-            var musica = MapearDtoParaDominio(musicaRequest);
+            var musica = musicaRequest.MapearDtoParaDominio();
             var mensagens = musicaService.Validar(musica);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
@@ -64,7 +63,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         public IActionResult Put(string id, [FromBody] MusicaDto musicaRequest)
         {
             // TODO: evaluate if we should return the updated object
-            var musica = MapearDtoParaDominio(musicaRequest);
+            var musica = musicaRequest.MapearDtoParaDominio();
             var mensagens = musicaService.Validar(musica);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
@@ -88,11 +87,6 @@ namespace Crescer.Spotify.WebApi.Controllers
             // TODO: add notfound behaviour from DB
             musicaRepository.DeletarMusica(id);
             return NoContent();
-        }
-
-        private Musica MapearDtoParaDominio(MusicaDto musicaDto)
-        {
-            return new Musica(musicaDto.Nome, musicaDto.Duracao);
         }
     }
 }

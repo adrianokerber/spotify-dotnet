@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
 using Crescer.Spotify.Dominio.Contratos;
-using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
+using Crescer.Spotify.WebApi.Mappers;
 using Crescer.Spotify.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +47,8 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Post([FromBody] AlbumDto albumRequest)
         {
-            var album = MapearDtoParaDominio(albumRequest);
+            // TODO: ao salvar um album tenho que criar músicas que não existam, devo fazer isso no usecase ao invés de ter essa regra de negócio aqui no controller
+            var album = albumRequest.MapearDtoParaDominio();
             var mensagens = albumService.Validar(album);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
@@ -66,7 +65,7 @@ namespace Crescer.Spotify.WebApi.Controllers
         public IActionResult Put(string id, [FromBody] AlbumDto albumRequest)
         {
             // TODO: evaluate if we should return the updated object
-            var album = MapearDtoParaDominio(albumRequest);
+            var album = albumRequest.MapearDtoParaDominio();
             var mensagens = albumService.Validar(album);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
@@ -91,22 +90,5 @@ namespace Crescer.Spotify.WebApi.Controllers
             albumRepository.DeletarAlbum(id);
             return NoContent();
         }
-
-        // TODO: move all mappers to proper mapper classes
-        private Album MapearDtoParaDominio(AlbumDto albumDto)
-        {
-            // TODO: move this logic to usecase
-            // TODO: change to store musics that could not be found on repository
-            List<Musica> musicas = new List<Musica>();
-            var albumTemMusicas = albumDto.Musicas?.Any() ?? false;
-            if (albumTemMusicas)
-            {
-                var nomesDeMusicas = albumDto.Musicas.Select(x => x.Nome).ToList();
-                musicas = musicaRepository.ListarMusicasPorNome(nomesDeMusicas);
-            }
-
-            return new Album(albumDto.Nome, musicas);
-        }
-
     }
 }
