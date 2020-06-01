@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Crescer.Spotify.Infra.Entities
 {
-    class MusicaOrm
+    public class MusicaOrm
     {
         public MusicaOrm(string nome, double duracao, ObjectId id = default)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Crescer.Spotify.Infra.Entities
 {
-    class AlbumOrm
+    public class AlbumOrm
     {
         public AlbumOrm(string nome, ObjectId id = default)
         {
