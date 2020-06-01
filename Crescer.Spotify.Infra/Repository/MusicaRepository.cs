@@ -93,15 +93,21 @@ namespace Crescer.Spotify.Infra.Repository
             collection.InsertOne(musicaOrm);
         }
 
-        public void SalvarMusicas(List<Musica> musicas)
+        public List<Musica> SalvarMusicas(List<Musica> musicas)
         {
             List<MusicaOrm> musicaOrms = MapearCollectionDomainParaCollectionOrm(musicas);
             collection.InsertMany(musicaOrms);
+            return MapearCollectionOrmParaCollectionDomain(musicaOrms);
         }
 
         private Musica MapearOrmParaDomain(MusicaOrm musicaOrm)
         {
             return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
+        }
+
+        private List<Musica> MapearCollectionOrmParaCollectionDomain(List<MusicaOrm> musicaOrms)
+        {
+            return musicaOrms.ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
         }
 
         private MusicaOrm MapearDomainParaOrm(Musica musica)

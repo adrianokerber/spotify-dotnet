@@ -33,9 +33,9 @@ namespace Crescer.Spotify.Dominio.Usecases
                     .Where(x => !nomesDeMusicasEncontradas.Contains(x.Nome))
                     .ToList();
 
-                musicaRepository.SalvarMusicas(musicasParaSalvar);
+                var musicasCriadas = musicaRepository.SalvarMusicas(musicasParaSalvar);
 
-                musicas = musicasParaSalvar.Union(musicasEncontradas).ToList();
+                musicas = musicasCriadas.Union(musicasEncontradas).ToList();
             } else
             {
                 musicas = musicasEncontradas;
