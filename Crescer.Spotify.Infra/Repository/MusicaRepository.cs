@@ -2,6 +2,7 @@ using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
+using static Crescer.Spotify.Infra.Mappers.MusicaOrmMapper;
 using Crescer.Spotify.Infra.Utils;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -99,26 +100,6 @@ namespace Crescer.Spotify.Infra.Repository
             List<MusicaOrm> musicaOrms = MapearCollectionDomainParaCollectionOrm(musicas);
             collection.InsertMany(musicaOrms);
             return MapearCollectionOrmParaCollectionDomain(musicaOrms);
-        }
-
-        private Musica MapearOrmParaDomain(MusicaOrm musicaOrm)
-        {
-            return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
-        }
-
-        private List<Musica> MapearCollectionOrmParaCollectionDomain(List<MusicaOrm> musicaOrms)
-        {
-            return musicaOrms.ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
-        }
-
-        private MusicaOrm MapearDomainParaOrm(Musica musica)
-        {
-            return new MusicaOrm(musica.Nome, musica.Duracao, id: musica.Id.ToObjectId());
-        }
-
-        private List<MusicaOrm> MapearCollectionDomainParaCollectionOrm(List<Musica> musicas)
-        {
-            return musicas.ConvertAll(new Converter<Musica, MusicaOrm>(MapearDomainParaOrm));
         }
     }
 }
