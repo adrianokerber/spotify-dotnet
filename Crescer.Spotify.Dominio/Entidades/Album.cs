@@ -28,5 +28,12 @@ namespace Crescer.Spotify.Dominio.Entidades
             Musicas = album.Musicas;
             Nome = album.Nome;
         }
+
+        public void Deconstruct(out string id, out List<Musica> musicas, out string nome)
+        {
+            id = this.Id;
+            musicas = this.Musicas;
+            nome = this.Nome;
+        }
     }
 }

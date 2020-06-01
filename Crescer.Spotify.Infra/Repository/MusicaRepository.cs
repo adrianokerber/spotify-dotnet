@@ -93,6 +93,12 @@ namespace Crescer.Spotify.Infra.Repository
             collection.InsertOne(musicaOrm);
         }
 
+        public void SalvarMusicas(List<Musica> musicas)
+        {
+            List<MusicaOrm> musicaOrms = MapearCollectionDomainParaCollectionOrm(musicas);
+            collection.InsertMany(musicaOrms);
+        }
+
         private Musica MapearOrmParaDomain(MusicaOrm musicaOrm)
         {
             return new Musica(musicaOrm.Nome, musicaOrm.Duracao, id: musicaOrm.Id.ToString());
@@ -101,6 +107,11 @@ namespace Crescer.Spotify.Infra.Repository
         private MusicaOrm MapearDomainParaOrm(Musica musica)
         {
             return new MusicaOrm(musica.Nome, musica.Duracao, id: musica.Id.ToObjectId());
+        }
+
+        private List<MusicaOrm> MapearCollectionDomainParaCollectionOrm(List<Musica> musicas)
+        {
+            return musicas.ConvertAll(new Converter<Musica, MusicaOrm>(MapearDomainParaOrm));
         }
     }
 }

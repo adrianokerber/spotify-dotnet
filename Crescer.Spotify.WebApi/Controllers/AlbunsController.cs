@@ -1,5 +1,6 @@
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Servicos;
+using Crescer.Spotify.Dominio.Usecases;
 using Crescer.Spotify.WebApi.Mappers;
 using Crescer.Spotify.WebApi.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +14,13 @@ namespace Crescer.Spotify.WebApi.Controllers
         private IAlbumRepository albumRepository;
         private IMusicaRepository musicaRepository;
         private AlbumService albumService;
+        private CriarAlbum criarAlbum;
         public AlbunsController(IAlbumRepository albumRepository, IMusicaRepository musicaRepository, AlbumService albumService)
         {
             this.albumRepository = albumRepository;
             this.musicaRepository = musicaRepository;
             this.albumService = albumService;
+            this.criarAlbum = new CriarAlbum(albumRepository, musicaRepository); // TODO: review with @Giordano since this is not the best option
         }
 
         // GET api/albuns
@@ -47,13 +50,14 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Post([FromBody] AlbumDto albumRequest)
         {
-            // TODO: ao salvar um album tenho que criar músicas que não existam, devo fazer isso no usecase ao invés de ter essa regra de negócio aqui no controller
             var album = albumRequest.MapearDtoParaDominio();
             var mensagens = albumService.Validar(album);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            albumRepository.SalvarAlbum(album);
+            // TODO: the rule for saving an album with new musics should be inside a usecase or service, we must review this implementation
+            criarAlbum.Invoke(album);
+
             return StatusCode(201);
         }
 

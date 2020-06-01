@@ -6,6 +6,7 @@ namespace Crescer.Spotify.Dominio.Contratos
     public interface IMusicaRepository
     {
         void SalvarMusica(Musica musica);
+        void SalvarMusicas(List<Musica> musicas);
         void AtualizarMusica(string id, Musica musica);
         void DeletarMusica(string id);
         List<Musica> ListarMusicas();
