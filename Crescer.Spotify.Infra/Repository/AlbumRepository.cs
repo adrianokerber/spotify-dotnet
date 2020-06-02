@@ -73,7 +73,7 @@ namespace Crescer.Spotify.Infra.Repository
         {
             var listaDeIdDeMusica = albumOrm.ListaDeIdsDeMusica
                 .ConvertAll(new Converter<ObjectId, string>(x => x.ToString()));
-            var musicas = musicaRepository.ListarMusicas(listaDeIdDeMusica);
+            var musicas = musicaRepository.ListarMusicas(listaDeIdDeMusica); // TODO: how should we move this to Mapper class?
             return new Album(albumOrm.Nome, musicas, id: albumOrm.Id.ToString());
         }
 

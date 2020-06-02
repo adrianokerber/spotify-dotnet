@@ -12,15 +12,13 @@ namespace Crescer.Spotify.WebApi.Controllers
     public class AlbunsController : Controller
     {
         private IAlbumRepository albumRepository;
-        private IMusicaRepository musicaRepository;
         private AlbumService albumService;
         private CriarAlbum criarAlbum;
-        public AlbunsController(IAlbumRepository albumRepository, IMusicaRepository musicaRepository, AlbumService albumService)
+        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService, CriarAlbum criarAlbum)
         {
             this.albumRepository = albumRepository;
-            this.musicaRepository = musicaRepository;
             this.albumService = albumService;
-            this.criarAlbum = new CriarAlbum(albumRepository, musicaRepository); // TODO: review with @Giordano since this is not the best option
+            this.criarAlbum = criarAlbum;
         }
 
         // GET api/albuns

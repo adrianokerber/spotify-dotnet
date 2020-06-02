@@ -2,7 +2,7 @@ using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
-using static Crescer.Spotify.Infra.Mappers.MusicaOrmMapper;
+using Crescer.Spotify.Infra.Mappers;
 using Crescer.Spotify.Infra.Utils;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -27,7 +27,7 @@ namespace Crescer.Spotify.Infra.Repository
             musicaObtida?.Atualizar(musica);
             if (musicaObtida != null)
             {
-                var musicaOrm = MapearDomainParaOrm(musicaObtida);
+                var musicaOrm = musicaObtida.MapearDomainParaOrm();
                 var objectId = id.ToObjectId();
                 collection.ReplaceOne(x => x.Id.Equals(objectId), musicaOrm);
             }
@@ -43,9 +43,7 @@ namespace Crescer.Spotify.Infra.Repository
         {
             List<MusicaOrm> musicaOrmList = collection
                 .Find<MusicaOrm>(_ => true).ToList();
-            var musicas = musicaOrmList
-                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
-            return musicas;
+            return musicaOrmList.MapearCollectionOrmParaCollectionDomain();
         }
 
         public List<Musica> ListarMusicas(List<string> idsMusica)
@@ -58,9 +56,7 @@ namespace Crescer.Spotify.Infra.Repository
 
             List<MusicaOrm> musicaOrmList = collection
                 .Find<MusicaOrm>(encontrarTodasAsMusicasDoArray).ToList();
-            var musicas = musicaOrmList
-                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
-            return musicas;
+            return musicaOrmList.MapearCollectionOrmParaCollectionDomain();
         }
 
         public List<Musica> ListarMusicasPorNome(List<string> nomesDeMusicas)
@@ -69,9 +65,7 @@ namespace Crescer.Spotify.Infra.Repository
 
             List<MusicaOrm> musicaOrmList = collection
                 .Find<MusicaOrm>(encontrarTodasAsMusicasPorNome).ToList();
-            var musicas = musicaOrmList
-                .ConvertAll(new Converter<MusicaOrm, Musica>(MapearOrmParaDomain));
-            return musicas;
+            return musicaOrmList.MapearCollectionOrmParaCollectionDomain();
         }
 
         public Musica Obter(string id)
@@ -84,22 +78,22 @@ namespace Crescer.Spotify.Infra.Repository
             if (musicaOrm == null)
                 return null;
 
-            var musica = MapearOrmParaDomain(musicaOrm);
+            var musica = musicaOrm.MapearOrmParaDomain();
             return musica;
         }
 
         public Musica SalvarMusica(Musica musica)
         {
-            MusicaOrm musicaOrm = MapearDomainParaOrm(musica);
+            MusicaOrm musicaOrm = musica.MapearDomainParaOrm();
             collection.InsertOne(musicaOrm);
-            return MapearOrmParaDomain(musicaOrm);
+            return musicaOrm.MapearOrmParaDomain();
         }
 
         public List<Musica> SalvarMusicas(List<Musica> musicas)
         {
-            List<MusicaOrm> musicaOrms = MapearCollectionDomainParaCollectionOrm(musicas);
-            collection.InsertMany(musicaOrms);
-            return MapearCollectionOrmParaCollectionDomain(musicaOrms);
+            List<MusicaOrm> listDeMusicaOrm = musicas.MapearCollectionDomainParaCollectionOrm();
+            collection.InsertMany(listDeMusicaOrm);
+            return listDeMusicaOrm.MapearCollectionOrmParaCollectionDomain();
         }
     }
 }

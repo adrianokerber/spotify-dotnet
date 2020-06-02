@@ -1,5 +1,6 @@
 ﻿using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Servicos;
+using Crescer.Spotify.Dominio.Usecases;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Repository;
 using Crescer.Spotify.Infra.Utils;
@@ -32,10 +33,11 @@ namespace Crescer.Spotify.WebApi
             var mongoSettings = MongoConfigurationLoader.Load(Configuration, databaseConfigKey: "SpotifyMongoDB");
             services.AddSingleton<MongoSettings>(mongoSettings);
             services.AddScoped<MongoAdapter, MongoAdapter>();
+            services.AddScoped<CriarAlbum, CriarAlbum>(); // TODO: Should usecases exist or should we use only services?
             services.AddScoped<MusicaService, MusicaService>();
             services.AddScoped<AlbumService, AlbumService>();
             services.AddScoped<IMusicaRepository, MusicaRepository>();
-            services.AddScoped<IAlbumRepository, AlbumRepository>();            
+            services.AddScoped<IAlbumRepository, AlbumRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
