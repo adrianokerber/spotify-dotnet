@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Infra.Adapters;
 using Crescer.Spotify.Infra.Entities;
+using Crescer.Spotify.Infra.Mappers;
 using Crescer.Spotify.Infra.Utils;
-using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Crescer.Spotify.Infra.Repository
 {
@@ -28,7 +27,7 @@ namespace Crescer.Spotify.Infra.Repository
             albumObtido?.Atualizar(album);
             if (albumObtido != null)
             {
-                var albumOrm = MapearDomainParaOrm(albumObtido);
+                var albumOrm = albumObtido.MapearDomainParaOrm();
                 var objectId = id.ToObjectId();
                 collection.ReplaceOne(x => x.Id.Equals(objectId), albumOrm);
             }
@@ -44,9 +43,7 @@ namespace Crescer.Spotify.Infra.Repository
         {
             List<AlbumOrm> albumOrmList = collection
                 .Find<AlbumOrm>(_ => true).ToList();
-            var albuns = albumOrmList
-                .ConvertAll(new Converter<AlbumOrm, Album>(MapearOrmParaDomain));
-            return albuns;
+            return albumOrmList.MapearCollectionOrmParaCollectionDomain(musicaRepository);
         }
 
         public Album Obter(string id)
@@ -59,28 +56,13 @@ namespace Crescer.Spotify.Infra.Repository
             if (albumOrm == null)
                 return null;
 
-            var album = MapearOrmParaDomain(albumOrm);
-            return album;
+            return albumOrm.MapearOrmParaDomain(musicaRepository);
         }
 
         public void SalvarAlbum(Album album)
         {
-            AlbumOrm albumOrm = MapearDomainParaOrm(album);
+            AlbumOrm albumOrm = album.MapearDomainParaOrm();
             collection.InsertOne(albumOrm);
-        }
-
-        private Album MapearOrmParaDomain(AlbumOrm albumOrm)
-        {
-            var listaDeIdDeMusica = albumOrm.ListaDeIdsDeMusica
-                .ConvertAll(new Converter<ObjectId, string>(x => x.ToString()));
-            var musicas = musicaRepository.ListarMusicas(listaDeIdDeMusica); // TODO: how should we move this to Mapper class?
-            return new Album(albumOrm.Nome, musicas, id: albumOrm.Id.ToString());
-        }
-
-        private AlbumOrm MapearDomainParaOrm(Album album)
-        {
-            var musicaIds = album.Musicas.ConvertAll(new Converter<Musica, ObjectId>(x => x.Id.ToObjectId()));
-            return new AlbumOrm(album.Nome, musicaIds, id: album.Id.ToObjectId());
         }
     }
 }
