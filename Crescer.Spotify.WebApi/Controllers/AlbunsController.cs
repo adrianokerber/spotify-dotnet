@@ -1,6 +1,5 @@
 using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Servicos;
-using Crescer.Spotify.Dominio.Usecases;
 using Crescer.Spotify.WebApi.Mappers;
 using Crescer.Spotify.WebApi.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,12 +12,12 @@ namespace Crescer.Spotify.WebApi.Controllers
     {
         private IAlbumRepository albumRepository;
         private AlbumService albumService;
-        private CriarAlbum criarAlbum;
-        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService, CriarAlbum criarAlbum)
+        private GerenciarAlbumService gerenciamentoAlbumService;
+        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService, GerenciarAlbumService gerenciamentoAlbumService)
         {
             this.albumRepository = albumRepository;
             this.albumService = albumService;
-            this.criarAlbum = criarAlbum;
+            this.gerenciamentoAlbumService = gerenciamentoAlbumService;
         }
 
         // GET api/albuns
@@ -53,8 +52,7 @@ namespace Crescer.Spotify.WebApi.Controllers
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            // TODO: the rule for saving an album with new musics should be inside a usecase or service, we must review this implementation
-            criarAlbum.Invoke(album);
+            gerenciamentoAlbumService.CriarAlbum(album);
 
             return StatusCode(201);
         }

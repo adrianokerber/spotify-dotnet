@@ -1,23 +1,23 @@
 ﻿using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Crescer.Spotify.Dominio.Usecases
+namespace Crescer.Spotify.Dominio.Servicos
 {
-    // TODO: review if usecases should even exist with DDD
-    public class CriarAlbum
+    public class GerenciarAlbumService
     {
         private IAlbumRepository albumRepository;
         private IMusicaRepository musicaRepository;
         
-        public CriarAlbum(IAlbumRepository albumRepository, IMusicaRepository musicaRepository)
+        public GerenciarAlbumService(IAlbumRepository albumRepository, IMusicaRepository musicaRepository)
         {
             this.albumRepository = albumRepository;
             this.musicaRepository = musicaRepository;
         }
 
-        public void Invoke(Album album)
+        public void CriarAlbum(Album album)
         {
             var (_, musicas, nome) = album;
 
