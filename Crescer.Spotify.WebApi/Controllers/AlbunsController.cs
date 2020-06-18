@@ -62,7 +62,6 @@ namespace Crescer.Spotify.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Put(string id, [FromBody] AlbumDto albumRequest)
         {
-            // TODO: evaluate if we should return the updated object
             var album = albumRequest.MapearDtoParaDominio();
             var mensagens = albumService.Validar(album);
             if (mensagens.Count > 0)
@@ -72,9 +71,8 @@ namespace Crescer.Spotify.WebApi.Controllers
             if (albumSalvo == null)
                 return NotFound();
 
-            album.Id = albumSalvo.Id;
+            albumService.AtualizarAlbum(id, album);
 
-            albumRepository.AtualizarAlbum(id, album);
             return Ok();
         }
 

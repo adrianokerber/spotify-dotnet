@@ -46,6 +46,36 @@ namespace Crescer.Spotify.Dominio.Servicos
             albumRepository.SalvarAlbum(novoAlbum);
         }
 
+        public void AtualizarAlbum(string albumId, Album album)
+        {
+            var (_, musicas, nome) = album;
+
+            var nomesDeMusicasParaEncontrar = album.Musicas.Select(x => x.Nome).ToList();
+            var musicasEncontradas = musicaRepository.ListarMusicasPorNome(nomesDeMusicasParaEncontrar);
+
+            var temosNovasMusicasParaSalvar = musicasEncontradas.Count < nomesDeMusicasParaEncontrar.Count;
+
+            if (temosNovasMusicasParaSalvar)
+            {
+                var nomesDeMusicasEncontradas = musicasEncontradas.Select(x => x.Nome);
+                var musicasParaSalvar = album.Musicas
+                    .Where(x => !nomesDeMusicasEncontradas.Contains(x.Nome))
+                    .ToList();
+
+                var musicasCriadas = musicaRepository.SalvarMusicas(musicasParaSalvar);
+
+                musicas = musicasCriadas.Union(musicasEncontradas).ToList();
+            }
+            else
+            {
+                musicas = musicasEncontradas;
+            }
+
+            var novoAlbum = new Album(nome, musicas);
+
+            albumRepository.AtualizarAlbum(albumId, novoAlbum);
+        }
+
         public List<string> Validar(Album album)
         {
             List<string> mensagens = new List<string>();

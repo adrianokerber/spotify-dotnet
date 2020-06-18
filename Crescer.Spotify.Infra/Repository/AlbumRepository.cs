@@ -21,13 +21,11 @@ namespace Crescer.Spotify.Infra.Repository
             this.musicaRepository = musicaRepository;
         }
 
-        // TODO: fix method to accept new musics
         public void AtualizarAlbum(string id, Album album)
         {
             var albumObtido = Obter(id);
             if (albumObtido != null)
             {
-                // TODO: find musics by name or save new ones in order to save the album with the new IDs
                 albumObtido?.Atualizar(album);
 
                 var albumOrm = albumObtido.MapearDomainParaOrm();
