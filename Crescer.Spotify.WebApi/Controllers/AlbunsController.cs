@@ -12,12 +12,10 @@ namespace Crescer.Spotify.WebApi.Controllers
     {
         private IAlbumRepository albumRepository;
         private AlbumService albumService;
-        private GerenciarAlbumService gerenciamentoAlbumService;
-        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService, GerenciarAlbumService gerenciamentoAlbumService)
+        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService)
         {
             this.albumRepository = albumRepository;
             this.albumService = albumService;
-            this.gerenciamentoAlbumService = gerenciamentoAlbumService;
         }
 
         // GET api/albuns
@@ -52,7 +50,7 @@ namespace Crescer.Spotify.WebApi.Controllers
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            gerenciamentoAlbumService.CriarAlbum(album);
+            albumService.CriarAlbum(album);
 
             return StatusCode(201);
         }

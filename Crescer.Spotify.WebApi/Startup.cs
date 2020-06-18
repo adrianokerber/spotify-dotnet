@@ -32,7 +32,6 @@ namespace Crescer.Spotify.WebApi
             var mongoSettings = MongoConfigurationLoader.Load(Configuration, databaseConfigKey: "SpotifyMongoDB");
             services.AddSingleton<MongoSettings>(mongoSettings);
             services.AddScoped<MongoAdapter, MongoAdapter>();
-            services.AddScoped<GerenciarAlbumService, GerenciarAlbumService>();
             services.AddScoped<MusicaService, MusicaService>();
             services.AddScoped<AlbumService, AlbumService>();
             services.AddScoped<IMusicaRepository, MusicaRepository>();
