@@ -12,6 +12,7 @@ namespace Crescer.Spotify.Dominio.Tests
         [TestMethod]
         public void DeveRetornarErroSeUmNomeNaoForInformado()
         {
+            // TODO: fix DI for tested service
             var albumService = new AlbumService();
 
             var erros = albumService.Validar(new Album(null));

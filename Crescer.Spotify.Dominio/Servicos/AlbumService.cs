@@ -20,26 +20,7 @@ namespace Crescer.Spotify.Dominio.Servicos
         {
             var (_, musicas, nome) = album;
 
-            var nomesDeMusicasParaEncontrar = album.Musicas.Select(x => x.Nome).ToList();
-            var musicasEncontradas = musicaRepository.ListarMusicasPorNome(nomesDeMusicasParaEncontrar);
-
-            var temosNovasMusicasParaSalvar = musicasEncontradas.Count < nomesDeMusicasParaEncontrar.Count;
-
-            if (temosNovasMusicasParaSalvar)
-            {
-                var nomesDeMusicasEncontradas = musicasEncontradas.Select(x => x.Nome);
-                var musicasParaSalvar = album.Musicas
-                    .Where(x => !nomesDeMusicasEncontradas.Contains(x.Nome))
-                    .ToList();
-
-                var musicasCriadas = musicaRepository.SalvarMusicas(musicasParaSalvar);
-
-                musicas = musicasCriadas.Union(musicasEncontradas).ToList();
-            }
-            else
-            {
-                musicas = musicasEncontradas;
-            }
+            musicas = SalvarMusicasNoRepositorio(musicas);
 
             var novoAlbum = new Album(nome, musicas);
 
@@ -50,17 +31,25 @@ namespace Crescer.Spotify.Dominio.Servicos
         {
             var (_, musicas, nome) = album;
 
-            var nomesDeMusicasParaEncontrar = album.Musicas.Select(x => x.Nome).ToList();
-            var musicasEncontradas = musicaRepository.ListarMusicasPorNome(nomesDeMusicasParaEncontrar);
+            musicas = SalvarMusicasNoRepositorio(musicas);
 
-            var temosNovasMusicasParaSalvar = musicasEncontradas.Count < nomesDeMusicasParaEncontrar.Count;
+            var novoAlbum = new Album(nome, musicas);
+
+            albumRepository.AtualizarAlbum(albumId, novoAlbum);
+        }
+
+        /**
+         * Save new songs to the repository and return all (new + existing songs)
+         */
+        private List<Musica> SalvarMusicasNoRepositorio(List<Musica> musicas)
+        {
+            var musicasEncontradas = BuscarMusicasPorNome(musicas);
+
+            var temosNovasMusicasParaSalvar = musicasEncontradas.Count < musicas.Count;
 
             if (temosNovasMusicasParaSalvar)
             {
-                var nomesDeMusicasEncontradas = musicasEncontradas.Select(x => x.Nome);
-                var musicasParaSalvar = album.Musicas
-                    .Where(x => !nomesDeMusicasEncontradas.Contains(x.Nome))
-                    .ToList();
+                var musicasParaSalvar = ObterMusicasParaSalvar(musicas, musicasEncontradas);
 
                 var musicasCriadas = musicaRepository.SalvarMusicas(musicasParaSalvar);
 
@@ -71,9 +60,19 @@ namespace Crescer.Spotify.Dominio.Servicos
                 musicas = musicasEncontradas;
             }
 
-            var novoAlbum = new Album(nome, musicas);
+            return musicas;
+        }
 
-            albumRepository.AtualizarAlbum(albumId, novoAlbum);
+        private List<Musica> BuscarMusicasPorNome(List<Musica> musicas)
+        {
+            var nomesDeMusicasParaEncontrar = musicas.Select(x => x.Nome).ToList();
+            return musicaRepository.ListarMusicasPorNome(nomesDeMusicasParaEncontrar);
+        }
+
+        private List<Musica> ObterMusicasParaSalvar(List<Musica> musicas, List<Musica> musicasParaIgnorar)
+        {
+            var nomesDeMusicasParaIgnorar = musicasParaIgnorar.Select(x => x.Nome);
+            return musicas.Where(x => !nomesDeMusicasParaIgnorar.Contains(x.Nome)).ToList();
         }
 
         public List<string> Validar(Album album)
