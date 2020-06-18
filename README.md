@@ -4,6 +4,14 @@ This is my first project with [.NET](https://dotnet.microsoft.com/) creating a w
 
 NOTE: This repository is an increment from the base project of [Crescer](https://crescer.cwi.com.br/).
 
+### First steps
+
+Use [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/community/) or any other IDE or CLI to build and run the WebAPI.
+
+Access:
+- Swagger in: *http://localhost:53651/swagger/*
+- Do your direct calls on: *http://localhost:53651/api/*
+
 ### Roadmap
 
 The following are the improvement goals from the base project.
