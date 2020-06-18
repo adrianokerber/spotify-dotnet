@@ -8,9 +8,9 @@ NOTE: This repository is an increment from the base project of [Crescer](https:/
 
 Use [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/community/) or any other IDE or CLI to build and run the WebAPI.
 
-Access:
+Once running the service access:
 - Swagger in: *http://localhost:53651/swagger/*
-- Do your direct calls on: *http://localhost:53651/api/*
+- Do your calls to: *http://localhost:53651/api/*
 
 ### Roadmap
 
