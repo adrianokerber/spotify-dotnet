@@ -3,6 +3,8 @@ using Crescer.Spotify.Dominio;
 using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.Dominio.Entidades;
 using System.Collections.Generic;
+using Crescer.Spotify.Dominio.Contratos;
+using Moq;
 
 namespace Crescer.Spotify.Dominio.Tests
 {
@@ -12,8 +14,9 @@ namespace Crescer.Spotify.Dominio.Tests
         [TestMethod]
         public void DeveRetornarErroSeUmNomeNaoForInformado()
         {
-            // TODO: fix DI for tested service
-            var albumService = new AlbumService();
+            Mock<IAlbumRepository> mockRepoAlbumRepository = new Mock<IAlbumRepository>();
+            Mock<IMusicaRepository> mockRepoMusicaRepository = new Mock<IMusicaRepository>();
+            var albumService = new AlbumService(mockRepoAlbumRepository.Object, mockRepoMusicaRepository.Object);
 
             var erros = albumService.Validar(new Album(null));
 
