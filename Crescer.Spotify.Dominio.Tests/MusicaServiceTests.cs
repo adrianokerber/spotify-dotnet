@@ -1,17 +1,27 @@
 using System.Collections.Generic;
+using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Crescer.Spotify.Dominio.Tests
 {
     [TestClass]
     public class MusicaServiceTests
     {
+        private Mock<IMusicaRepository> mockRepoMusicaRepository;
+
+        [TestInitialize]
+        public void Before()
+        {
+            mockRepoMusicaRepository = new Mock<IMusicaRepository>();
+        }
+
         [TestMethod]
         public void DeveRetornarErroSeUmNomeNaoForInformado()
         {
-            var albumService = new MusicaService();
+            var albumService = new MusicaService(mockRepoMusicaRepository.Object);
 
             var erros = albumService.Validar(new Musica(null, 200));
 
@@ -21,7 +31,7 @@ namespace Crescer.Spotify.Dominio.Tests
         [TestMethod]
         public void DeveRetornarErroSeUmaDuracaoNaoForInformada()
         {
-            var albumService = new MusicaService();
+            var albumService = new MusicaService(mockRepoMusicaRepository.Object);
 
             var erros = albumService.Validar(new Musica("Musica 1", 0));
 
@@ -31,7 +41,7 @@ namespace Crescer.Spotify.Dominio.Tests
         [TestMethod]
         public void EmCasoDeMaisDeUmErroTodosDevemSerRetornados()
         {
-            var albumService = new MusicaService();
+            var albumService = new MusicaService(mockRepoMusicaRepository.Object);
 
             var erros = albumService.Validar(new Musica(null, 0));
 

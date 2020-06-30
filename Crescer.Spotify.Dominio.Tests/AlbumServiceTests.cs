@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Crescer.Spotify.Dominio;
 using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.Dominio.Entidades;
 using System.Collections.Generic;
@@ -15,8 +14,8 @@ namespace Crescer.Spotify.Dominio.Tests
         public void DeveRetornarErroSeUmNomeNaoForInformado()
         {
             Mock<IAlbumRepository> mockRepoAlbumRepository = new Mock<IAlbumRepository>();
-            Mock<IMusicaRepository> mockRepoMusicaRepository = new Mock<IMusicaRepository>();
-            var albumService = new AlbumService(mockRepoAlbumRepository.Object, mockRepoMusicaRepository.Object);
+            Mock<MusicaService> mockRepoMusicaService = new Mock<MusicaService>();
+            var albumService = new AlbumService(mockRepoAlbumRepository.Object, mockRepoMusicaService.Object);
 
             var erros = albumService.Validar(new Album(null));
 
