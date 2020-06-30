@@ -35,3 +35,6 @@ msbuild.wrn
 
 # Visual Studio 2019
 .vs/
+
+# Ignore test results
+TestResults/

@@ -14,7 +14,8 @@ namespace Crescer.Spotify.Dominio.Tests
         public void DeveRetornarErroSeUmNomeNaoForInformado()
         {
             Mock<IAlbumRepository> mockRepoAlbumRepository = new Mock<IAlbumRepository>();
-            Mock<MusicaService> mockRepoMusicaService = new Mock<MusicaService>();
+            Mock<IMusicaRepository> mockRepoMusicaRepository = new Mock<IMusicaRepository>();
+            Mock<MusicaService> mockRepoMusicaService = new Mock<MusicaService>(mockRepoMusicaRepository.Object);
             var albumService = new AlbumService(mockRepoAlbumRepository.Object, mockRepoMusicaService.Object);
 
             var erros = albumService.Validar(new Album(null));
