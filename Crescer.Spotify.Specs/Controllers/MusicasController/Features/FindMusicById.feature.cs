@@ -151,7 +151,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have the id \"5eec28\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 17
- testRunner.And("The music does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.But("The music does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
 #line hidden
 #line 18
  testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
