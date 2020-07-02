@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Crescer.Spotify.Specs.SpecFlow_CalculatorExample.Features
+namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,7 +20,7 @@ namespace Crescer.Spotify.Specs.SpecFlow_CalculatorExample.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [TechTalk.SpecRun.FeatureAttribute("Calculator", Description="\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
-        "f two numbers", SourceFile="SpecFlow_CalculatorExample\\Features\\Calculator.feature", SourceLine=0)]
+        "f two numbers", SourceFile="SpecFlow_Examples\\Features\\Calculator.feature", SourceLine=0)]
     public partial class CalculatorFeature
     {
         
