@@ -4,7 +4,6 @@ using Crescer.Spotify.Dominio.Servicos;
 using Crescer.Spotify.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 using Moq;
 using TechTalk.SpecFlow;
 
@@ -31,20 +30,30 @@ namespace Crescer.Spotify.Specs.Steps
         public void GivenIHaveTheId(string id)
         {
             givenId = id;
+        }
 
+        [Given(@"The music for that id exists")]
+        public void GivenTheMusicForThatIdExists()
+        {
             var music = new Musica("Music1", 0.0, givenId);
             mockRepoMusicaRepository
                 .Setup(repo => repo.Obter(givenId))
                 .Returns(music);
         }
-        
+
+        [Given(@"The music does not exist")]
+        public void GivenTheMusicDoesNotExist()
+        {
+            // The music does not exist so we do not need to set a mock
+        }
+
         [When(@"I call GET music")]
         public void WhenICallGETMusic()
         {
             var objectResult = musicasController.Get(givenId) as ObjectResult;
-            var musicFound = objectResult.Value as Musica;
+            var musicFound = objectResult?.Value as Musica;
 
-            resultId = musicFound.Id;
+            resultId = musicFound?.Id;
         }
 
         [Then(@"the result should be a music with the same ""(.*)"" id")]
@@ -52,5 +61,12 @@ namespace Crescer.Spotify.Specs.Steps
         {
             Assert.AreEqual(expectedId, resultId);
         }
+
+        [Then(@"the result should be null")]
+        public void ThenTheResultShouldBeNull()
+        {
+            Assert.IsNull(resultId);
+        }
+
     }
 }
