@@ -19,14 +19,16 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("FindMusicById", Description="\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to retrieve a musi" +
-        "c with the same inputed id", SourceFile="Controllers\\MusicasController\\Features\\FindMusicById.feature", SourceLine=0)]
+    [TechTalk.SpecRun.FeatureAttribute("FindMusicById", new string[] {
+            "MusicasController"}, Description="\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to be able to retr" +
+        "ieve musics or fail using a music ID", SourceFile="Controllers\\MusicasController\\Features\\FindMusicById.feature", SourceLine=1)]
     public partial class FindMusicByIdFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private string[] _featureTags = new string[] {
+                "MusicasController"};
         
 #line 1 "FindMusicById.feature"
 #line hidden
@@ -35,8 +37,9 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FindMusicById", "\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to retrieve a musi" +
-                    "c with the same inputed id", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FindMusicById", "\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to be able to retr" +
+                    "ieve musics or fail using a music ID", ProgrammingLanguage.CSharp, new string[] {
+                        "MusicasController"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -73,14 +76,14 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Retrieve a music by ID", new string[] {
-                "MusicasController"}, SourceLine=6)]
+                "Success"}, SourceLine=7)]
         public virtual void RetrieveAMusicByID()
         {
             string[] tagsOfScenario = new string[] {
-                    "MusicasController"};
+                    "Success"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieve a music by ID", null, tagsOfScenario, argumentsOfScenario);
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -100,14 +103,61 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("I have the id \"5eec28eb6e50a13a88dfffb6\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
+ testRunner.And("The music for that id exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 11
  testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 12
  testRunner.Then("the result should be a music with the same \"5eec28eb6e50a13a88dfffb6\" id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Fail to retrieve a music by ID since the music does not exist", new string[] {
+                "Failure"}, SourceLine=14)]
+        public virtual void FailToRetrieveAMusicByIDSinceTheMusicDoesNotExist()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "Failure"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail to retrieve a music by ID since the music does not exist", null, tagsOfScenario, argumentsOfScenario);
+#line 15
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 16
+ testRunner.Given("I have the id \"5eec28\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 17
+ testRunner.And("The music does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 18
+ testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 19
+ testRunner.Then("the result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
