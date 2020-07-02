@@ -14,6 +14,6 @@ Scenario: Retrieve a music by ID
 @Failure
 Scenario: Fail to retrieve a music by ID since the music does not exist
 	Given I have the id "5eec28"
-	And The music does not exist
+	But The music does not exist
 	When I call GET music
 	Then the result should be null
