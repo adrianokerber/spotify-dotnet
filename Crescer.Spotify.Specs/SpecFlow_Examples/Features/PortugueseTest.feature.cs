@@ -19,13 +19,18 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("Contar uma história usando personagens", SourceFile="SpecFlow_Examples\\Features\\PortugueseTest.feature", SourceLine=1)]
-    public partial class ContarUmaHistoriaUsandoPersonagensFeature
+    [TechTalk.SpecRun.FeatureAttribute("Contar uma história através de uma frase com um nome de um homem e o nome de um t" +
+        "ouro", new string[] {
+            "Portugues"}, Description="\tA fim de gerar frases com dois atores fixos\r\n\tComo autor espero ter frases que v" +
+        "ariam os nomes mas não a forma textual\r\n\tEu quero desta forma ter uma função fác" +
+        "il que possa ser reusada em inúmeros casos", SourceFile="SpecFlow_Examples\\Features\\PortugueseTest.feature", SourceLine=2)]
+    public partial class ContarUmaHistoriaAtravesDeUmaFraseComUmNomeDeUmHomemEONomeDeUmTouroFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = ((string[])(null));
+        private string[] _featureTags = new string[] {
+                "Portugues"};
         
 #line 1 "PortugueseTest.feature"
 #line hidden
@@ -34,7 +39,11 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt"), "Contar uma história usando personagens", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt"), "Contar uma história através de uma frase com um nome de um homem e o nome de um t" +
+                    "ouro", "\tA fim de gerar frases com dois atores fixos\r\n\tComo autor espero ter frases que v" +
+                    "ariam os nomes mas não a forma textual\r\n\tEu quero desta forma ter uma função fác" +
+                    "il que possa ser reusada em inúmeros casos", ProgrammingLanguage.CSharp, new string[] {
+                        "Portugues"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,13 +79,13 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("História do ser humano e da mula andando na rua", SourceLine=3)]
-        public virtual void HistoriaDoSerHumanoEDaMulaAndandoNaRua()
+        [TechTalk.SpecRun.ScenarioAttribute("Quero ver a frase completa com um nome para o homem e um para o touro", SourceLine=7)]
+        public virtual void QueroVerAFraseCompletaComUmNomeParaOHomemEUmParaOTouro()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("História do ser humano e da mula andando na rua", null, tagsOfScenario, argumentsOfScenario);
-#line 4
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Quero ver a frase completa com um nome para o homem e um para o touro", null, tagsOfScenario, argumentsOfScenario);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -96,16 +105,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 9
  testRunner.Given("que um homem de nome \"João\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line hidden
-#line 6
+#line 10
  testRunner.And("um touro chamado \"Bartô\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
-#line 7
+#line 11
  testRunner.When("andando pela rua se encontram", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-#line 8
+#line 12
  testRunner.Then("resulta na frase \"Um homem chamado João se encontra com o touro Bartô\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
             }
