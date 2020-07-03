@@ -51,11 +51,18 @@ namespace Crescer.Spotify.Specs.Steps
         [When(@"I call GET music")]
         public void WhenICallGETMusic()
         {
-            var objectResult = musicasController.Get(givenId) as ObjectResult;
-            var musicFound = objectResult?.Value as Musica;
+            var result = musicasController.Get(givenId);
 
-            resultId = musicFound?.Id;
-            responseCode = objectResult?.StatusCode;
+            switch (result)
+            {
+                case ObjectResult okObjectResult:
+                    responseCode = okObjectResult.StatusCode;
+                    resultId = (okObjectResult?.Value as Musica)?.Id;
+                    break;
+                case NotFoundResult notFoundResult:
+                    responseCode = notFoundResult.StatusCode;
+                    break;
+            }
         }
 
         [Then(@"the result should be a music with the same ""(.*)"" id")]
