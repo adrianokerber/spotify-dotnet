@@ -16,6 +16,7 @@ namespace Crescer.Spotify.Specs.Steps
         private MusicasController musicasController;
         private string givenId;
         private string resultId;
+        private int? responseCode;
 
         [Before]
         public void Before()
@@ -54,6 +55,7 @@ namespace Crescer.Spotify.Specs.Steps
             var musicFound = objectResult?.Value as Musica;
 
             resultId = musicFound?.Id;
+            responseCode = objectResult?.StatusCode;
         }
 
         [Then(@"the result should be a music with the same ""(.*)"" id")]
@@ -67,6 +69,14 @@ namespace Crescer.Spotify.Specs.Steps
         {
             Assert.IsNull(resultId);
         }
+
+        [Then(@"the response code should be (.*)")]
+        public void ThenTheResponseCodeShouldBe(int expectedResponseCode)
+        {
+            Assert.AreEqual(expectedResponseCode, responseCode);
+        }
+
+
 
     }
 }
