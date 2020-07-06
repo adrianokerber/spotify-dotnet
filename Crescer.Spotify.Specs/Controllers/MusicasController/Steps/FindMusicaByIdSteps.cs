@@ -1,19 +1,18 @@
 ﻿using Crescer.Spotify.Dominio.Contratos;
 using Crescer.Spotify.Dominio.Entidades;
 using Crescer.Spotify.Dominio.Servicos;
-using Crescer.Spotify.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TechTalk.SpecFlow;
 
-namespace Crescer.Spotify.Specs.Steps
+namespace Crescer.Spotify.Specs.Controllers.MusicasController.Steps
 {
     [Binding]
     public class FindMusicaByIdSteps
     {
         Mock<IMusicaRepository> mockRepoMusicaRepository;
-        private MusicasController musicasController;
+        private WebApi.Controllers.MusicasController musicasController;
         private string givenId;
         private string resultId;
         private int? responseCode;
@@ -24,7 +23,7 @@ namespace Crescer.Spotify.Specs.Steps
             mockRepoMusicaRepository = new Mock<IMusicaRepository>();
             Mock<MusicaService> mockRepoMusicaService = new Mock<MusicaService>(mockRepoMusicaRepository.Object);
 
-            musicasController = new MusicasController(mockRepoMusicaRepository.Object, mockRepoMusicaService.Object);
+            musicasController = new WebApi.Controllers.MusicasController(mockRepoMusicaRepository.Object, mockRepoMusicaService.Object);
         }
 
         [Given(@"I have the id ""(.*)""")]

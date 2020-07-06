@@ -5,17 +5,16 @@
 
 @CalculatorTest
 Scenario: Add two numbers
-	Given I have entered 50 into the calculator
-	And I have also entered 70 into the calculator
+	Given I have entered <first> into the calculator
+	And I have also entered <second> into the calculator
 	When I press add
-	Then the result should be 120 on the screen
+	Then the result should be <result> on the screen
 
-@CalculatorTest
-Scenario: Add other two numbers
-	Given I have entered 8 into the calculator
-	And I have also entered 5 into the calculator
-	When I press add
-	Then the result should be 13 on the screen
+Examples:
+	| first | second | result |
+	| 50    | 70     | 120    |
+	| 8     | 2      | 10     |
+	| 13    | 17     | 30     |
 
 @CalculatorTest
 Scenario: Add two numbers but one is negative
