@@ -1,4 +1,4 @@
-# Spotify a simple CRUD - from Crescer
+# Spotify Library a simple CRUD
 
 This is my first project with [.NET](https://dotnet.microsoft.com/) creating a web service (ASP.NET) in a simple CRUD.
 
@@ -7,7 +7,7 @@ The project follows a hexagonal architecture using Domain Driven Development (DD
 - Infrastructure - the layer for projects that implement framework specific code and do database communications.
 - Application - the layer for the projects like WebApis, workers, etc.
 
-NOTE: This repository is an increment from a project provided by [Crescer](https://crescer.cwi.com.br/).
+INFO: This repository is an increment from a project provided by [Crescer](https://crescer.cwi.com.br/).
 
 ### First steps
 
