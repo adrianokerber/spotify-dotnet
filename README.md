@@ -7,15 +7,17 @@ The project follows a hexagonal architecture using Domain Driven Development (DD
 - Infrastructure - the layer for projects that implement framework specific code and do database communications.
 - Application - the layer for the projects like WebApis, workers, etc.
 
-NOTE: This repository is an increment from the base project of [Crescer](https://crescer.cwi.com.br/).
+NOTE: This repository is an increment from a project provided by [Crescer](https://crescer.cwi.com.br/).
 
 ### First steps
 
-Use [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/community/) or any other IDE or CLI to build and run the WebAPI.
+- Install [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/community/) IDE or CLI to build and run the WebAPI.
+- Install [SpecFlow](https://specflow.org/)'s plugin for Visual Studio and any other requirements from its [getting started](https://specflow.org/getting-started/).
+- The database (DB) is a MongoDB and it's hosted freely, but feel free to run on your own local DB by changing the keys.
 
 Once running the service access:
-- Swagger in: *http://localhost:53651/swagger/*
-- Do your calls to: *http://localhost:53651/api/*
+- Swagger on: *http://localhost:53651/swagger/*
+- Make calls to: *http://localhost:53651/api/*
 
 ### Roadmap
 

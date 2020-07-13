@@ -19,13 +19,13 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("Find music by ID on MusicasController", new string[] {
-            "MusicasController"}, Description="\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to be able to retr" +
-        "ieve musics or fail using a music ID", SourceFile="Controllers\\MusicasController\\Features\\FindMusicById.feature", SourceLine=1)]
+    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
     public partial class FindMusicByIDOnMusicasControllerFeature
     {
         
-        private TechTalk.SpecFlow.ITestRunner testRunner;
+        private static TechTalk.SpecFlow.ITestRunner testRunner;
+        
+        private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
         private string[] _featureTags = new string[] {
                 "MusicasController"};
@@ -33,8 +33,20 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
 #line 1 "FindMusicById.feature"
 #line hidden
         
-        [TechTalk.SpecRun.FeatureInitialize()]
-        public virtual void FeatureSetup()
+        public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
+        {
+            get
+            {
+                return this._testContext;
+            }
+            set
+            {
+                this._testContext = value;
+            }
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
+        public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Find music by ID on MusicasController", "\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to be able to retr" +
@@ -43,18 +55,24 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [TechTalk.SpecRun.FeatureCleanup()]
-        public virtual void FeatureTearDown()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute()]
+        public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute()]
         public virtual void TestInitialize()
         {
+            if (((testRunner.FeatureContext != null) 
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Find music by ID on MusicasController")))
+            {
+                global::Crescer.Spotify.Specs.Controllers.MusicasController.Features.FindMusicByIDOnMusicasControllerFeature.FeatureSetup(null);
+            }
         }
         
-        [TechTalk.SpecRun.ScenarioCleanup()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute()]
         public virtual void TestTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -63,6 +81,7 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
+            testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Microsoft.VisualStudio.TestTools.UnitTesting.TestContext>(_testContext);
         }
         
         public virtual void ScenarioStart()
@@ -75,8 +94,11 @@ namespace Crescer.Spotify.Specs.Controllers.MusicasController.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Retrieve a music by ID", new string[] {
-                "Success"}, SourceLine=7)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Retrieve a music by ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Success")]
         public virtual void RetrieveAMusicByID()
         {
             string[] tagsOfScenario = new string[] {
@@ -119,8 +141,11 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Fail to retrieve a music by ID since the music does not exist", new string[] {
-                "Failure"}, SourceLine=14)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fail to retrieve a music by ID since the music does not exist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Failure")]
         public virtual void FailToRetrieveAMusicByIDSinceTheMusicDoesNotExist()
         {
             string[] tagsOfScenario = new string[] {
@@ -163,8 +188,11 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Retrieve a music by ID and receive success response", new string[] {
-                "Success"}, SourceLine=21)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Retrieve a music by ID and receive success response")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Success")]
         public virtual void RetrieveAMusicByIDAndReceiveSuccessResponse()
         {
             string[] tagsOfScenario = new string[] {
@@ -210,8 +238,11 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Fail to retrieve a music by ID and receive not found response", new string[] {
-                "Failure"}, SourceLine=29)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fail to retrieve a music by ID and receive not found response")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Failure")]
         public virtual void FailToRetrieveAMusicByIDAndReceiveNotFoundResponse()
         {
             string[] tagsOfScenario = new string[] {

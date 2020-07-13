@@ -19,15 +19,13 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("Contar uma história através de uma frase com um nome de um homem e o nome de um t" +
-        "ouro", new string[] {
-            "Portugues"}, Description="\tA fim de gerar frases com dois atores fixos\r\n\tComo autor espero ter frases que v" +
-        "ariam os nomes mas não a forma textual\r\n\tEu quero desta forma ter uma função fác" +
-        "il que possa ser reusada em inúmeros casos", SourceFile="SpecFlow_Examples\\Features\\PortugueseTest.feature", SourceLine=2)]
+    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
     public partial class ContarUmaHistoriaAtravesDeUmaFraseComUmNomeDeUmHomemEONomeDeUmTouroFeature
     {
         
-        private TechTalk.SpecFlow.ITestRunner testRunner;
+        private static TechTalk.SpecFlow.ITestRunner testRunner;
+        
+        private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
         private string[] _featureTags = new string[] {
                 "Portugues"};
@@ -35,8 +33,20 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
 #line 1 "PortugueseTest.feature"
 #line hidden
         
-        [TechTalk.SpecRun.FeatureInitialize()]
-        public virtual void FeatureSetup()
+        public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
+        {
+            get
+            {
+                return this._testContext;
+            }
+            set
+            {
+                this._testContext = value;
+            }
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
+        public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt"), "Contar uma história através de uma frase com um nome de um homem e o nome de um t" +
@@ -47,18 +57,25 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [TechTalk.SpecRun.FeatureCleanup()]
-        public virtual void FeatureTearDown()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute()]
+        public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute()]
         public virtual void TestInitialize()
         {
+            if (((testRunner.FeatureContext != null) 
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Contar uma história através de uma frase com um nome de um homem e o nome de um t" +
+                            "ouro")))
+            {
+                global::Crescer.Spotify.Specs.SpecFlow_Examples.Features.ContarUmaHistoriaAtravesDeUmaFraseComUmNomeDeUmHomemEONomeDeUmTouroFeature.FeatureSetup(null);
+            }
         }
         
-        [TechTalk.SpecRun.ScenarioCleanup()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute()]
         public virtual void TestTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -67,6 +84,7 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
+            testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Microsoft.VisualStudio.TestTools.UnitTesting.TestContext>(_testContext);
         }
         
         public virtual void ScenarioStart()
@@ -79,7 +97,11 @@ namespace Crescer.Spotify.Specs.SpecFlow_Examples.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Quero ver a frase completa com um nome para o homem e um para o touro", SourceLine=7)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Quero ver a frase completa com um nome para o homem e um para o touro")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Contar uma história através de uma frase com um nome de um homem e o nome de um t" +
+            "ouro")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Portugues")]
         public virtual void QueroVerAFraseCompletaComUmNomeParaOHomemEUmParaOTouro()
         {
             string[] tagsOfScenario = ((string[])(null));
