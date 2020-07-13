@@ -7,6 +7,8 @@ The project follows a hexagonal architecture using Domain Driven Development (DD
 - Infrastructure - the layer for projects that implement framework specific code and do database communications.
 - Application - the layer for the projects like WebApis, workers, etc.
 
+We also have tests focused on BDD (Behaviour Driven Development) with SpecFlow and Unit Tests.
+
 INFO: This repository is an increment from a project provided by [Crescer](https://crescer.cwi.com.br/).
 
 ### First steps
