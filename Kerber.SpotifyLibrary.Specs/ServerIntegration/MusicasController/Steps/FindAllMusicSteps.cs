@@ -20,25 +20,22 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
 
         private List<Musica> _givenListOfSongs;
         private HttpClient _client;
-        private string _expectedListOfSongs;
+        private string _responseListOfSongs;
         private int _responseCode;
 
         // TODO: rename all 'musics' to 'songs' since music is uncountable and there is no plural
 
         public void PrepareTestServerAndDependencies()
         {
+            // Set up mocks
             Mock<IMusicaRepository> mockRepoMusicaRepository = new Mock<IMusicaRepository>();
-
-            var music = new Musica("Music1", 1.0, "1"); // TODO: get songs from _givenListOfSongs
             mockRepoMusicaRepository
-                .Setup(repo => repo.Obter("1"))
-                .Returns(music);
+                .Setup(repo => repo.ListarMusicas())
+                .Returns(_givenListOfSongs);
 
-            Action<IServiceCollection> services = (services => {
+            var server = TestServerHelper.CreateTestServer(services => {
                 services.AddScoped<IMusicaRepository>(x => mockRepoMusicaRepository.Object);
             });
-
-            var server = TestServerHelper.CreateTestServer(services);
             
             _client = server.CreateClient();
         }
@@ -56,11 +53,11 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
         {
             PrepareTestServerAndDependencies();
 
+            // TODO: review why the request to 'GET: api/musicas' is always failing
             var message = new HttpRequestMessage(HttpMethod.Get, $"api/musicas");
             var response = _client.SendAsync(message).GetAwaiter().GetResult();
 
-            var responseContentAsString = response.Content.ReadAsStringAsync().Result;
-            //_expectedListOfSongs = JsonConvert.DeserializeObject<List<Musica>>(responseContentAsString);
+            _responseListOfSongs = response.Content.ReadAsStringAsync().Result;
             _responseCode = (int)response.StatusCode;
         }
 
@@ -70,7 +67,7 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
             var expectedResponse = new StreamReader(@$"{_resourcesPath}\{expectedSongListJsonFilename}").ReadToEnd();
 
             JToken expected = JToken.Parse(expectedResponse);
-            JToken actual = JToken.Parse(_expectedListOfSongs); // TODO: review condition since we must have the actual value here
+            JToken actual = JToken.Parse(_responseListOfSongs);
 
             Assert.AreEqual(expected, actual);
         }
