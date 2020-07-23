@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Moq" Version="4.14.5" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
@@ -19,6 +20,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kerber.SpotifyLibrary.WebApi\Kerber.SpotifyLibrary.WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ServerIntegration\MusicasController\TestData\RequestMusicList.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServerIntegration\MusicasController\TestData\ResponseMusicList.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
