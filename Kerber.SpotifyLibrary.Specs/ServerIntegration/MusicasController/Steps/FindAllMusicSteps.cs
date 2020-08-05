@@ -73,7 +73,7 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
             JToken actual = JToken.Parse(_responseListOfSongs);
 
             Assert.IsTrue(
-                JToken.DeepEquals(expected, actual)
+                JToken.DeepEquals(expected, actual) // WARNING: DeepEquals will fail if the field 'duracao' returns 3.0 just as 3
                 );
         }
 
