@@ -23,7 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ServerIntegration\MusicasController\TestData\RequestMusicListWithManySongs.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="ServerIntegration\MusicasController\TestData\RequestMusicList.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServerIntegration\MusicasController\TestData\ResponseMusicListWithManySongs.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ServerIntegration\MusicasController\TestData\ResponseMusicList.json">
