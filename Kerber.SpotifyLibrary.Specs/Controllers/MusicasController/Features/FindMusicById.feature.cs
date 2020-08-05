@@ -20,7 +20,7 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.3.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class FindMusicByIDOnMusicasControllerFeature
+    public partial class FindSongByIDOnMusicasControllerFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -49,8 +49,8 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Find music by ID on MusicasController", "\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to be able to retr" +
-                    "ieve musics or fail using a music ID", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Find song by ID on MusicasController", "\tIn order to avoid silly mistakes\r\n\tAs a worried user\r\n\tI want to be able to retr" +
+                    "ieve a song or fail using a song ID", ProgrammingLanguage.CSharp, new string[] {
                         "MusicasController"});
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -66,9 +66,9 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Features
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Find music by ID on MusicasController")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Find song by ID on MusicasController")))
             {
-                global::Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Features.FindMusicByIDOnMusicasControllerFeature.FeatureSetup(null);
+                global::Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Features.FindSongByIDOnMusicasControllerFeature.FeatureSetup(null);
             }
         }
         
@@ -95,16 +95,16 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Retrieve a music by ID")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Retrieve a song by ID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find song by ID on MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Success")]
-        public virtual void RetrieveAMusicByID()
+        public virtual void RetrieveASongByID()
         {
             string[] tagsOfScenario = new string[] {
                     "Success"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieve a music by ID", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieve a song by ID", null, tagsOfScenario, argumentsOfScenario);
 #line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -129,29 +129,29 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have the id \"5eec28eb6e50a13a88dfffb6\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 10
- testRunner.And("The music for that id exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("The song for that id exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
- testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I call GET song", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 12
- testRunner.Then("the result should be a music with the same \"5eec28eb6e50a13a88dfffb6\" id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should be a song with the same \"5eec28eb6e50a13a88dfffb6\" id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fail to retrieve a music by ID since the music does not exist")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fail to retrieve a song by ID since the song does not exist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find song by ID on MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Failure")]
-        public virtual void FailToRetrieveAMusicByIDSinceTheMusicDoesNotExist()
+        public virtual void FailToRetrieveASongByIDSinceTheSongDoesNotExist()
         {
             string[] tagsOfScenario = new string[] {
                     "Failure"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail to retrieve a music by ID since the music does not exist", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail to retrieve a song by ID since the song does not exist", null, tagsOfScenario, argumentsOfScenario);
 #line 15
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -176,10 +176,10 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have the id \"5eec28\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 17
- testRunner.But("The music does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+ testRunner.But("The song does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
 #line hidden
 #line 18
- testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I call GET song", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 19
  testRunner.Then("the result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -189,16 +189,16 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Retrieve a music by ID and receive success response")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Retrieve a song by ID and receive success response")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find song by ID on MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Success")]
-        public virtual void RetrieveAMusicByIDAndReceiveSuccessResponse()
+        public virtual void RetrieveASongByIDAndReceiveSuccessResponse()
         {
             string[] tagsOfScenario = new string[] {
                     "Success"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieve a music by ID and receive success response", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Retrieve a song by ID and receive success response", null, tagsOfScenario, argumentsOfScenario);
 #line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -223,13 +223,13 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have the id \"5eec28eb6e50a13a88dfffb6\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 24
- testRunner.And("The music for that id exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("The song for that id exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 25
- testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I call GET song", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 26
- testRunner.Then("the result should be a music with the same \"5eec28eb6e50a13a88dfffb6\" id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should be a song with the same \"5eec28eb6e50a13a88dfffb6\" id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 27
  testRunner.And("the response code should be 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -239,16 +239,16 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fail to retrieve a music by ID and receive not found response")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find music by ID on MusicasController")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fail to retrieve a song by ID and receive not found response")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Find song by ID on MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MusicasController")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Failure")]
-        public virtual void FailToRetrieveAMusicByIDAndReceiveNotFoundResponse()
+        public virtual void FailToRetrieveASongByIDAndReceiveNotFoundResponse()
         {
             string[] tagsOfScenario = new string[] {
                     "Failure"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail to retrieve a music by ID and receive not found response", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail to retrieve a song by ID and receive not found response", null, tagsOfScenario, argumentsOfScenario);
 #line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -273,10 +273,10 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have the id \"5eec28\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 32
- testRunner.But("The music does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+ testRunner.But("The song does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
 #line hidden
 #line 33
- testRunner.When("I call GET music", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I call GET song", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 34
  testRunner.Then("the result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
