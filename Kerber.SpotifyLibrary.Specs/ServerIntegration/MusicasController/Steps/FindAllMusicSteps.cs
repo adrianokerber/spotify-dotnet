@@ -25,8 +25,6 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
         private string _responseListOfSongs;
         private int _responseCode;
 
-        // TODO: rename all 'musics' to 'songs' since music is uncountable and there is no plural
-
         [Before]
         public void Before()
         {

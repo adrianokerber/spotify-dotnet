@@ -51,7 +51,7 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Featur
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FindAllMusic from MusicasController", "\tIn order to avoid silly mistakes\r\n\tAs worried user\r\n\tI want to be able to retrie" +
-                    "ve all musics", ProgrammingLanguage.CSharp, new string[] {
+                    "ve all songs", ProgrammingLanguage.CSharp, new string[] {
                         "Integration",
                         "MusicasController"});
             testRunner.OnFeatureStart(featureInfo);

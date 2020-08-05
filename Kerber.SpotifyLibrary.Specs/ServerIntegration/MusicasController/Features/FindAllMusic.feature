@@ -3,7 +3,7 @@
 Feature: FindAllMusic from MusicasController
 	In order to avoid silly mistakes
 	As worried user
-	I want to be able to retrieve all musics
+	I want to be able to retrieve all songs
 
 @Success
 Scenario: Retrieve all music

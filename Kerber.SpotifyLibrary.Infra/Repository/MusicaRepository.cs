@@ -18,7 +18,7 @@ namespace Kerber.SpotifyLibrary.Infra.Repository
 
         public MusicaRepository(MongoAdapter mongoAdapter)
         {
-            collection = mongoAdapter.GetCollection<MusicaOrm>("musics");
+            collection = mongoAdapter.GetCollection<MusicaOrm>("songs");
         }
 
         public void AtualizarMusica(string id, Musica musica)
