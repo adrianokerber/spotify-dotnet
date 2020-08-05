@@ -19,6 +19,7 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
     {
         private const string _resourcesPath = @".\ServerIntegration\MusicasController\TestData";
 
+        private Mock<IMusicaRepository> _mockRepoMusicaRepository;
         private List<Musica> _givenListOfSongs;
         private HttpClient _client;
         private string _responseListOfSongs;
@@ -26,17 +27,14 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
 
         // TODO: rename all 'musics' to 'songs' since music is uncountable and there is no plural
 
-        public void PrepareTestServerAndDependencies()
+        [Before]
+        public void Before()
         {
-            // Set up mocks
-            Mock<IMusicaRepository> mockRepoMusicaRepository = new Mock<IMusicaRepository>();
-            // TODO: move the mock values to proper step
-            mockRepoMusicaRepository
-                .Setup(repo => repo.ListarMusicas())
-                .Returns(_givenListOfSongs);
+            _mockRepoMusicaRepository = new Mock<IMusicaRepository>();
 
+            // DI
             var server = TestServerHelper.CreateTestServer(services => {
-                services.AddScoped<IMusicaRepository>(x => mockRepoMusicaRepository.Object);
+                services.AddScoped<IMusicaRepository>(x => _mockRepoMusicaRepository.Object);
                 services.AddScoped<MusicaService, MusicaService>();
             });
             
@@ -51,12 +49,17 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
             _givenListOfSongs = JsonConvert.DeserializeObject<List<Musica>>(givenJsonFile);
         }
 
+        [Given(@"they are stored on the service")]
+        public void GivenTheyAreStoredOnTheService()
+        {
+            _mockRepoMusicaRepository
+                .Setup(repo => repo.ListarMusicas())
+                .Returns(_givenListOfSongs);
+        }
+
         [When(@"I call GET all songs")]
         public void WhenICallGETAllSongs()
         {
-            PrepareTestServerAndDependencies();
-
-            // TODO: review why the request to 'GET: api/musicas' is always failing
             var message = new HttpRequestMessage(HttpMethod.Get, $"api/musicas");
             var response = _client.SendAsync(message).GetAwaiter().GetResult();
 

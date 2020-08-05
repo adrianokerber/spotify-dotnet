@@ -8,6 +8,7 @@ Feature: FindAllMusic from MusicasController
 @Success
 Scenario: Retrieve all music
 	Given I have these songs <givenSongs>
+	And they are stored on the service
 	When I call GET all songs
 	Then the result should be these songs <expectedSongs>
 	And the response code should be 200
