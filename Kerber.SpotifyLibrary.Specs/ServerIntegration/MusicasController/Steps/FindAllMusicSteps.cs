@@ -1,5 +1,6 @@
 ﻿using Kerber.SpotifyLibrary.Domain.Contratos;
 using Kerber.SpotifyLibrary.Domain.Entidades;
+using Kerber.SpotifyLibrary.Domain.Servicos;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -29,12 +30,14 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
         {
             // Set up mocks
             Mock<IMusicaRepository> mockRepoMusicaRepository = new Mock<IMusicaRepository>();
+            // TODO: move the mock values to proper step
             mockRepoMusicaRepository
                 .Setup(repo => repo.ListarMusicas())
                 .Returns(_givenListOfSongs);
 
             var server = TestServerHelper.CreateTestServer(services => {
                 services.AddScoped<IMusicaRepository>(x => mockRepoMusicaRepository.Object);
+                services.AddScoped<MusicaService, MusicaService>();
             });
             
             _client = server.CreateClient();
