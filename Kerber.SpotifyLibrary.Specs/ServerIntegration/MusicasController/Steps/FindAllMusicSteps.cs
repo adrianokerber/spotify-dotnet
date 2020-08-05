@@ -72,7 +72,9 @@ namespace Kerber.SpotifyLibrary.Specs.ServerIntegration.MusicasController.Steps
             JToken expected = JToken.Parse(expectedResponse);
             JToken actual = JToken.Parse(_responseListOfSongs);
 
-            Assert.AreEqual(expected, actual);
+            Assert.IsTrue(
+                JToken.DeepEquals(expected, actual)
+                );
         }
 
         [Then(@"the response code should be (.*)")]

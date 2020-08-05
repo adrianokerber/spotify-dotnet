@@ -14,5 +14,6 @@ Scenario: Retrieve all music
 	And the response code should be 200
 
 Examples:
-	| givenSongs            | expectedSongs          |
-	| RequestMusicList.json | ResponseMusicList.json |
+	| givenSongs                         | expectedSongs                       |
+	| RequestMusicList.json              | ResponseMusicList.json              |
+	| RequestMusicListWithManySongs.json | ResponseMusicListWithManySongs.json |
