@@ -38,3 +38,6 @@ msbuild.wrn
 
 # Ignore test results
 TestResults/
+
+# SpecFlow
+*.feature.cs
