@@ -1,6 +1,6 @@
-# Spotify Library a simple CRUD
+# Spotify-dotnet Library a simple CRUD
 
-This is my first project with [.NET](https://dotnet.microsoft.com/) creating a web service (ASP.NET) in a simple CRUD.
+This is my first project with [.NET](https://dotnet.microsoft.com/) creating a web service (ASP.NET) as a simple CRUD.
 
 The project follows a hexagonal architecture using Domain Driven Development (DDD), then the projects are divided in:
 - Domain - the layer responsible for all business rules and business models and should always be framework independent.
