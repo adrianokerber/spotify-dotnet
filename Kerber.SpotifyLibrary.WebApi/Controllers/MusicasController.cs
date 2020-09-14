@@ -27,10 +27,11 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            var songs = musicaRepository.ListarMusicas();
-            _logger.LogInformation("Listed songs {@Songs}", songs);
+            var musicas = musicaRepository.ListarMusicas();
 
-            return Ok(songs);
+            _logger.LogInformation("Músicas listadas {@Songs}", musicas);
+
+            return Ok(musicas);
         }
 
         // GET api/musicas/5
@@ -40,6 +41,9 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         public IActionResult Get(string id)
         {
             var musica = musicaRepository.Obter(id);
+
+            _logger.LogInformation("Música obtida {@Song}", musica);
+
             if (musica == null)
                 return NotFound();
 
