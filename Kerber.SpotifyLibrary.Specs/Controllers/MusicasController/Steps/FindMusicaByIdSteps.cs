@@ -2,6 +2,7 @@
 using Kerber.SpotifyLibrary.Domain.Entidades;
 using Kerber.SpotifyLibrary.Domain.Servicos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TechTalk.SpecFlow;
@@ -22,8 +23,9 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Steps
         {
             mockRepoMusicaRepository = new Mock<IMusicaRepository>();
             Mock<MusicaService> mockRepoMusicaService = new Mock<MusicaService>(mockRepoMusicaRepository.Object);
+            Mock<ILogger<WebApi.Controllers.MusicasController>> mockRepoLogger = new Mock<ILogger<WebApi.Controllers.MusicasController>>();
 
-            musicasController = new WebApi.Controllers.MusicasController(mockRepoMusicaRepository.Object, mockRepoMusicaService.Object);
+            musicasController = new WebApi.Controllers.MusicasController(mockRepoMusicaRepository.Object, mockRepoMusicaService.Object, mockRepoLogger.Object);
         }
 
         [Given(@"I have the id ""(.*)""")]

@@ -4,19 +4,22 @@ using Kerber.SpotifyLibrary.WebApi.Mappers;
 using Kerber.SpotifyLibrary.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Kerber.SpotifyLibrary.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class MusicasController : Controller
     {
-        private IMusicaRepository musicaRepository;
-        private MusicaService musicaService;
+        private readonly IMusicaRepository musicaRepository;
+        private readonly MusicaService musicaService;
+        private readonly ILogger<MusicasController> _logger;
 
-        public MusicasController(IMusicaRepository musicaRepository, MusicaService musicaService)
+        public MusicasController(IMusicaRepository musicaRepository, MusicaService musicaService, ILogger<MusicasController> logger)
         {
             this.musicaRepository = musicaRepository;
             this.musicaService = musicaService;
+            _logger = logger;
         }
 
         // GET api/musicas
@@ -24,7 +27,10 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            return Ok(musicaRepository.ListarMusicas());
+            var songs = musicaRepository.ListarMusicas();
+            _logger.LogInformation("Listed songs {@Songs}", songs);
+
+            return Ok(songs);
         }
 
         // GET api/musicas/5
