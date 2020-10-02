@@ -34,3 +34,4 @@ The following are the improvement goals from the base project.
 - [ ] Add new Unit Tests for invalid data such as invalid or missing **ObjectId**
 - [x] Add SpecFlow BDD tests and some [examples](https://docbehat.readthedocs.io/pt/v3.1/guides/1.gherkin.html)
 - [x] Add [Serilog](https://github.com/serilog) for logging events in a structured way
+- [ ] Add Dockerfile for automated builds - Build once run everywhere
