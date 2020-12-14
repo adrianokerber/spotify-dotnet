@@ -1,44 +1,26 @@
 ﻿using Kerber.SpotifyLibrary.Domain.Contratos;
 using Kerber.SpotifyLibrary.Domain.Entidades;
-using Kerber.SpotifyLibrary.Domain.Servicos;
+using Kerber.SpotifyLibrary.Specs.Bases;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TechTalk.SpecFlow;
 
 namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Steps
 {
-    [Binding]
-    public class FindMusicaByIdSteps
+    [Binding, Scope(Feature = "Find song by ID on MusicasController")]
+    public class FindMusicaByIdSteps : BaseSteps
     {
-        Mock<IMusicaRepository> mockRepoMusicaRepository;
-        private WebApi.Controllers.MusicasController musicasController;
-        private string givenId;
-        private string resultId;
-        private int? responseCode;
-
-        [Before]
-        public void Before()
-        {
-            mockRepoMusicaRepository = new Mock<IMusicaRepository>();
-            Mock<MusicaService> mockRepoMusicaService = new Mock<MusicaService>(mockRepoMusicaRepository.Object);
-            Mock<ILogger<WebApi.Controllers.MusicasController>> mockRepoLogger = new Mock<ILogger<WebApi.Controllers.MusicasController>>();
-
-            musicasController = new WebApi.Controllers.MusicasController(mockRepoMusicaRepository.Object, mockRepoMusicaService.Object, mockRepoLogger.Object);
-        }
-
-        [Given(@"I have the id ""(.*)""")]
-        public void GivenIHaveTheId(string id)
-        {
-            givenId = id;
-        }
+        public FindMusicaByIdSteps(ScenarioContext scenarioContext) : base(scenarioContext) { }
 
         [Given(@"The song for that id exists")]
         public void GivenTheSongForThatIdExists()
         {
+            _scenarioContext.TryGetValue(ParameterNameGuide.MockMusicaRepository, out Mock<IMusicaRepository> mockMusicaRepository);
+            _scenarioContext.TryGetValue(ParameterNameGuide.GivenId, out string givenId);
+
             var music = new Musica("Music1", 0.0, givenId);
-            mockRepoMusicaRepository
+            mockMusicaRepository
                 .Setup(repo => repo.Obter(givenId))
                 .Returns(music);
         }
@@ -52,8 +34,13 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Steps
         [When(@"I call GET song")]
         public void WhenICallGETSong()
         {
+            _scenarioContext.TryGetValue(ParameterNameGuide.GivenId, out string givenId);
+            _scenarioContext.TryGetValue(ParameterNameGuide.MusicasController, out WebApi.Controllers.MusicasController musicasController);
+
             var result = musicasController.Get(givenId);
 
+            int? responseCode = null;
+            string resultId = null;
             switch (result)
             {
                 case ObjectResult okObjectResult:
@@ -64,27 +51,25 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers.MusicasController.Steps
                     responseCode = notFoundResult.StatusCode;
                     break;
             }
+
+            _scenarioContext[ParameterNameGuide.ReponseCode] = responseCode;
+            _scenarioContext[ParameterNameGuide.ResultId] = resultId;
         }
 
         [Then(@"the result should be a song with the same ""(.*)"" id")]
         public void ThenTheResultShouldBeASongWithTheSameId(string expectedId)
         {
+            _scenarioContext.TryGetValue(ParameterNameGuide.ResultId, out string resultId);
+
             Assert.AreEqual(expectedId, resultId);
         }
 
         [Then(@"the result should be null")]
         public void ThenTheResultShouldBeNull()
         {
+            _scenarioContext.TryGetValue(ParameterNameGuide.ResultId, out string resultId);
+
             Assert.IsNull(resultId);
         }
-
-        [Then(@"the response code should be (.*)")]
-        public void ThenTheResponseCodeShouldBe(int expectedResponseCode)
-        {
-            Assert.AreEqual(expectedResponseCode, responseCode);
-        }
-
-
-
     }
 }
