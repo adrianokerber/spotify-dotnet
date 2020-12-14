@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using TechTalk.SpecFlow;
-using System.Linq;
-using Moq;
-using Castle.Core.Internal;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Kerber.SpotifyLibrary.Specs.Bases;
+﻿using Kerber.SpotifyLibrary.Application.SpecFlowTests.Common.Bases;
 using Kerber.SpotifyLibrary.Domain.Contratos;
 using Kerber.SpotifyLibrary.Domain.Servicos;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using TechTalk.SpecFlow;
 
-namespace Kerber.SpotifyLibrary.Specs.Controllers
+namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.CommonSteps
 {
     [Binding]
     public class CommonSteps : SharedSteps
@@ -28,6 +25,15 @@ namespace Kerber.SpotifyLibrary.Specs.Controllers
             var mockRepoLogger = new Mock<ILogger<WebApi.Controllers.MusicasController>>();
 
             _scenarioContext[ParameterNameGuide.MusicasController] = new WebApi.Controllers.MusicasController(mockMusicaRepository.Object, mockMusicaService.Object, mockRepoLogger.Object);
+
+            /////
+            var mockAlbumRepository = new Mock<IAlbumRepository>();
+            var mockAlbumService = new Mock<AlbumService>(mockAlbumRepository.Object, mockMusicaService.Object);
+
+            _scenarioContext[ParameterNameGuide.MockAlbumRepository] = mockAlbumRepository;
+            _scenarioContext[ParameterNameGuide.MockAlbumService] = mockAlbumService;
+
+            _scenarioContext[ParameterNameGuide.AlbunsController] = new WebApi.Controllers.AlbunsController(mockAlbumRepository.Object, mockAlbumService.Object);
         }
 
         [Given(@"I have the id ""(.*)""")]

@@ -16,3 +16,7 @@ Utilize a classe `ParameterNameGuide.cs` para armazenar a chave para cada objeto
 **DICA**: Sempre crie testes verbosos e bem definidos para deixar as intenções claras
 
 >Não conheçe o SpecFlow e quer entender um pouco mais sobre esse framework que usamos? Acesse https://specflow.org/
+
+## Estrutura de testes atual
+
+O projeto de testes está dividido em dois tipos, primeiro testes de Controllers sem mockar o servidor, depois na pasta `ServerMigration` estão os testes utilizando mock no servidor também, tornando mais confiáveis as respostas por passar por todo o fluxo do projeto.

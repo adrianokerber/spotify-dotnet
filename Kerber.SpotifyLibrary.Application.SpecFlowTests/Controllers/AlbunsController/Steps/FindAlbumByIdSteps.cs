@@ -6,38 +6,38 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TechTalk.SpecFlow;
 
-namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.Controllers.MusicasController.Steps
+namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.Controllers.AlbunsController.Steps
 {
-    [Binding, Scope(Feature = "Find song by ID on MusicasController")]
-    public class FindMusicaByIdSteps : BaseSteps
+    [Binding, Scope(Feature = "Find album my ID on AlbunsController")]
+    public class FindAlbumByIdSteps : BaseSteps
     {
-        public FindMusicaByIdSteps(ScenarioContext scenarioContext) : base(scenarioContext) { }
+        public FindAlbumByIdSteps(ScenarioContext scenarioContext) : base(scenarioContext) {}
 
-        [Given(@"The song for that id exists")]
-        public void GivenTheSongForThatIdExists()
+        [Given(@"the album for that ID exists")]
+        public void GivenTheAlbumForThatIDExists()
         {
-            _scenarioContext.TryGetValue(ParameterNameGuide.MockMusicaRepository, out Mock<IMusicaRepository> mockMusicaRepository);
+            _scenarioContext.TryGetValue(ParameterNameGuide.MockAlbumRepository, out Mock<IAlbumRepository> mockAlbumRepository);
             _scenarioContext.TryGetValue(ParameterNameGuide.GivenId, out string givenId);
 
-            var music = new Musica("Music1", 0.0, givenId);
-            mockMusicaRepository
+            var album = new Album("Album1", givenId);
+            mockAlbumRepository
                 .Setup(repo => repo.Obter(givenId))
-                .Returns(music);
+                .Returns(album);
         }
 
-        [Given(@"The song does not exist")]
-        public void GivenTheSongDoesNotExist()
+        [Given(@"the album does not exist")]
+        public void GivenTheAlbumDoesNotExist()
         {
-            // The song does not exist so we do not need to set a mock
+            // The album does not exist so we do not need to set a mock
         }
 
-        [When(@"I call GET song")]
-        public void WhenICallGETSong()
+        [When(@"I call GET album by ID")]
+        public void WhenICallGETAlbumByID()
         {
             _scenarioContext.TryGetValue(ParameterNameGuide.GivenId, out string givenId);
-            _scenarioContext.TryGetValue(ParameterNameGuide.MusicasController, out WebApi.Controllers.MusicasController musicasController);
+            _scenarioContext.TryGetValue(ParameterNameGuide.AlbunsController, out WebApi.Controllers.AlbunsController albunsController);
 
-            var result = musicasController.Get(givenId);
+            var result = albunsController.Get(givenId);
 
             int? responseCode = null;
             string resultId = null;
@@ -45,7 +45,7 @@ namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.Controllers.MusicasCon
             {
                 case ObjectResult okObjectResult:
                     responseCode = okObjectResult.StatusCode;
-                    resultId = (okObjectResult?.Value as Musica)?.Id;
+                    resultId = (okObjectResult?.Value as Album)?.Id;
                     break;
                 case NotFoundResult notFoundResult:
                     responseCode = notFoundResult.StatusCode;
@@ -56,8 +56,8 @@ namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.Controllers.MusicasCon
             _scenarioContext[ParameterNameGuide.ResultId] = resultId;
         }
 
-        [Then(@"the result should be a song with the same ""(.*)"" id")]
-        public void ThenTheResultShouldBeASongWithTheSameId(string expectedId)
+        [Then(@"the result should be an album with the same ""(.*)"" id")]
+        public void ThenTheResultShouldBeAnAlbumWithTheSameId(string expectedId)
         {
             _scenarioContext.TryGetValue(ParameterNameGuide.ResultId, out string resultId);
 
@@ -71,5 +71,6 @@ namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.Controllers.MusicasCon
 
             Assert.IsNull(resultId);
         }
+
     }
 }
