@@ -1,22 +1,23 @@
-﻿# Projeto de testes utilizando BDD através do SpecFlow
+﻿# Test project using BDD throught SpecFlow
 
-Este é o projeto de testes para o *Spotify dotnet CRUD* e tem o objetivo de testar as regras de negócio das controllers da REST API.
+This is the test project for *${XXX} dotnet CRUD* and has the main goal to test business rules throught the `Controller`'s classes of the REST API.
 
-## Estruturando testes
+## Structuring tests
 
-O SpecFlow utiliza escopo global, sendo assim todos os passos (A.K.A.: Steps) são compartilhados entre os cenários e funcionalidades.
-Para criar novos testes criamos um arquivo `.feature`.
+The SpecFlow utilizes a global scope, meaning that all the steps are shared among all scenarios and features.
+In order to create a new test you muste create a file `.feature` that must be written in **Gherkin**.
 
-Temos duas bases gerais para as classes de teste, sendo:
-1. `BaseSteps.cs` a classe base geral que deve agregar todos os métodos comuns aos demais testes, porém nenhum destes métodos pode ser um step. Os steps devem ficar na classe filha ou na classe de steps compartilhados chamada `CommonSteps.cs`
-2. Todos os passos de teste que devem ser compartilhados precisam ficar definidos na classe `CommonSteps.cs` pois ela é o centralizador de passos comuns a todos os testes.
+We have three main base classes for our test structures:
+1. `BaseSteps.cs` the base classe that all feature step definitions should inherit from.
+2. `CommonSteps.cs` the classe that has the Context Injection (CI) and must be inherited from in order to keep objects among different step classes.
+3. `ParameterNameGuide.cs` has only one purpose - keep all keys for the objects injected via CI.
 
-Utilize a classe `ParameterNameGuide.cs` para armazenar a chave para cada objeto que será salvo nos contextos do SpecFlow e que devem ser compartilhados entre os steps.
+**TIP**: Always define tests in a verbose form to keep clear all the test intentions and the desired behaviours.
 
-**DICA**: Sempre crie testes verbosos e bem definidos para deixar as intenções claras
+>Do you not now SpecFlow? Learn more about it on https://specflow.org/
 
->Não conheçe o SpecFlow e quer entender um pouco mais sobre esse framework que usamos? Acesse https://specflow.org/
+## Current test structure
 
-## Estrutura de testes atual
-
-O projeto de testes está dividido em dois tipos, primeiro testes de Controllers sem mockar o servidor, depois na pasta `ServerMigration` estão os testes utilizando mock no servidor também, tornando mais confiáveis as respostas por passar por todo o fluxo do projeto.
+The test project is divided by goals:
+1. `Controllers` folder - responsible for testing only the controller rules itself.
+2. `ServerMigration` folder - responsible for testing the controllers with all the server mocked to test any authentication barriers defined on the project.

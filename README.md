@@ -9,7 +9,7 @@ The project follows a hexagonal architecture using Domain Driven Development (DD
 
 We also have tests focused on BDD (Behaviour Driven Development) with SpecFlow and Unit Tests.
 
-INFO: This repository is an increment from a project provided by [Crescer](https://crescer.cwi.com.br/).
+>INFO: This repository is an increment from a project provided by [Crescer](https://crescer.cwi.com.br/).
 
 ### First steps
 
@@ -31,7 +31,7 @@ The following are the improvement goals from the base project.
 - [x] Enhance RESTful API to follow REST principles (eg: when creating an entity we should return 201 instead of the simple 200)
 - [x] Read Mongo connection string from configuration instead of hardcoded
 - [ ] Return DTOs instead of entity classes on Controller responses
-- [ ] Add new Unit Tests for invalid data such as invalid or missing **ObjectId**
 - [x] Add SpecFlow BDD tests and some [examples](https://docbehat.readthedocs.io/pt/v3.1/guides/1.gherkin.html)
+- [x] Add Unit Tests mocking not only controllers but the entire server
 - [x] Add [Serilog](https://github.com/serilog) for logging events in a structured way
 - [ ] Add Dockerfile for automated builds - Build once run everywhere
