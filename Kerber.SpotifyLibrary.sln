@@ -4,7 +4,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.WebApi", "Kerber.SpotifyLibrary.WebApi\Kerber.SpotifyLibrary.WebApi.csproj", "{6A13513C-157B-48C0-8EE7-7C34FD0F4D07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.Specs", "Kerber.SpotifyLibrary.Specs\Kerber.SpotifyLibrary.Specs.csproj", "{57D52531-FE7D-4FE9-B6DD-DD6EDA71D8C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.Application.SpecFlowTests", "Kerber.SpotifyLibrary.Specs\Kerber.SpotifyLibrary.Application.SpecFlowTests.csproj", "{57D52531-FE7D-4FE9-B6DD-DD6EDA71D8C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.Infra", "Kerber.SpotifyLibrary.Infra\Kerber.SpotifyLibrary.Infra.csproj", "{C6591A0E-4E23-43AC-8E96-7167EC542CA1}"
 EndProject
