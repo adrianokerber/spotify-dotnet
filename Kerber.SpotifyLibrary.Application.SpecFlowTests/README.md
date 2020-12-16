@@ -5,7 +5,7 @@ This is the test project for *${XXX} dotnet CRUD* and has the main goal to test 
 ## Structuring tests
 
 The SpecFlow utilizes a global scope, meaning that all the steps are shared among all scenarios and features.
-In order to create a new test you muste create a file `.feature` that must be written in **Gherkin**.
+In order to create a new test you must create a file `.feature` that must be written in **Gherkin**.
 
 We have three main base classes for our test structures:
 1. `BaseSteps.cs` the base classe that all feature step definitions should inherit from.
