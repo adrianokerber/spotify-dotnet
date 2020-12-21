@@ -12,9 +12,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.Domai
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Application Layer", "1. Application Layer", "{21680C53-6364-4F65-9A8C-FCAD26AC02A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Domain Layer", "3. Domain Layer", "{9C40AC83-65CF-4045-B326-A47FAB9BB5EE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain Layer", "2. Domain Layer", "{9C40AC83-65CF-4045-B326-A47FAB9BB5EE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Infrastructure Layer", "2. Infrastructure Layer", "{E6FE6B33-C07E-4E6E-BB60-3CA7D2C66B65}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infrastructure Layer", "3. Infrastructure Layer", "{E6FE6B33-C07E-4E6E-BB60-3CA7D2C66B65}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Test Layer", "4. Test Layer", "{1759B503-B7F9-4057-AD70-89C104B21AC1}"
 EndProject
