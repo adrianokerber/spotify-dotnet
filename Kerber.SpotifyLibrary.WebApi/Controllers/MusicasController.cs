@@ -11,14 +11,14 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
     [Route("api/[controller]")]
     public class MusicasController : Controller
     {
-        private readonly IMusicaRepository musicaRepository;
-        private readonly MusicaService musicaService;
+        private readonly IMusicaRepository _musicaRepository;
+        private readonly MusicaService _musicaService;
         private readonly ILogger<MusicasController> _logger;
 
         public MusicasController(IMusicaRepository musicaRepository, MusicaService musicaService, ILogger<MusicasController> logger)
         {
-            this.musicaRepository = musicaRepository;
-            this.musicaService = musicaService;
+            _musicaRepository = musicaRepository;
+            _musicaService = musicaService;
             _logger = logger;
         }
 
@@ -27,7 +27,7 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            var musicas = musicaRepository.ListarMusicas();
+            var musicas = _musicaRepository.ListarMusicas();
 
             _logger.LogInformation("Músicas listadas {@Songs}", musicas);
 
@@ -40,7 +40,7 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(string id)
         {
-            var musica = musicaRepository.Obter(id);
+            var musica = _musicaRepository.Obter(id);
 
             _logger.LogInformation("Música obtida {@Song}", musica);
 
@@ -57,11 +57,11 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         public IActionResult Post([FromBody] MusicaDto musicaRequest)
         {
             var musica = musicaRequest.MapearDtoParaDominio();
-            var mensagens = musicaService.Validar(musica);
+            var mensagens = _musicaService.Validar(musica);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            musicaRepository.SalvarMusica(musica);
+            _musicaRepository.SalvarMusica(musica);
             return StatusCode(201);
         }
 
@@ -74,17 +74,17 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         {
             // TODO: evaluate if we should return the updated object
             var musica = musicaRequest.MapearDtoParaDominio();
-            var mensagens = musicaService.Validar(musica);
+            var mensagens = _musicaService.Validar(musica);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            var musicaSalva = musicaRepository.Obter(id);
+            var musicaSalva = _musicaRepository.Obter(id);
             if (musicaSalva == null)
                 return NotFound();
 
             musica.Id = musicaSalva.Id;
 
-            musicaRepository.AtualizarMusica(id, musica);
+            _musicaRepository.AtualizarMusica(id, musica);
             return Ok();
         }
 
@@ -95,7 +95,7 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         public IActionResult Delete(string id)
         {
             // TODO: add notfound behaviour from DB
-            musicaRepository.DeletarMusica(id);
+            _musicaRepository.DeletarMusica(id);
             return NoContent();
         }
     }

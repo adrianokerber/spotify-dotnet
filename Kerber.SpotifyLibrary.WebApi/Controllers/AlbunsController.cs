@@ -4,18 +4,22 @@ using Kerber.SpotifyLibrary.WebApi.Mappers;
 using Kerber.SpotifyLibrary.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Kerber.SpotifyLibrary.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class AlbunsController : Controller
     {
-        private IAlbumRepository albumRepository;
-        private AlbumService albumService;
-        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService)
+        private readonly IAlbumRepository _albumRepository;
+        private readonly AlbumService _albumService;
+        private readonly ILogger<AlbunsController> _logger;
+
+        public AlbunsController(IAlbumRepository albumRepository, AlbumService albumService, ILogger<AlbunsController> logger)
         {
-            this.albumRepository = albumRepository;
-            this.albumService = albumService;
+            _albumRepository = albumRepository;
+            _albumService = albumService;
+            _logger = logger;
         }
 
         // GET api/albuns
@@ -23,7 +27,11 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            return Ok(albumRepository.ListarAlbuns());
+            var albuns = _albumRepository.ListarAlbuns();
+
+            _logger.LogInformation("Álbuns listados {@Albums}", albuns);
+
+            return Ok(albuns);
         }
 
         // GET api/albuns/5
@@ -32,7 +40,10 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(string id)
         {
-            var album = albumRepository.Obter(id);
+            var album = _albumRepository.Obter(id);
+
+            _logger.LogInformation("Álbum obtido {@Album}", album);
+
             if (album == null)
                 return NotFound();
 
@@ -46,11 +57,11 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         public IActionResult Post([FromBody] AlbumDto albumRequest)
         {
             var album = albumRequest.MapearDtoParaDominio();
-            var mensagens = albumService.Validar(album);
+            var mensagens = _albumService.Validar(album);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            albumService.CriarAlbum(album);
+            _albumService.CriarAlbum(album);
 
             return StatusCode(201);
         }
@@ -63,15 +74,15 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         public IActionResult Put(string id, [FromBody] AlbumDto albumRequest)
         {
             var album = albumRequest.MapearDtoParaDominio();
-            var mensagens = albumService.Validar(album);
+            var mensagens = _albumService.Validar(album);
             if (mensagens.Count > 0)
                 return BadRequest(mensagens);
 
-            var albumSalvo = albumRepository.Obter(id);
+            var albumSalvo = _albumRepository.Obter(id);
             if (albumSalvo == null)
                 return NotFound();
 
-            albumService.AtualizarAlbum(id, album);
+            _albumService.AtualizarAlbum(id, album);
 
             return Ok();
         }
@@ -83,7 +94,7 @@ namespace Kerber.SpotifyLibrary.WebApi.Controllers
         public IActionResult Delete(string id)
         {
             // TODO: add notfound behaviour from DB
-            albumRepository.DeletarAlbum(id);
+            _albumRepository.DeletarAlbum(id);
             return NoContent();
         }
     }

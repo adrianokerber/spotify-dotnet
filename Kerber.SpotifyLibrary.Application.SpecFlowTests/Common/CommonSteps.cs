@@ -22,9 +22,9 @@ namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.CommonSteps
             _scenarioContext[ParameterNameGuide.MockMusicaRepository] = mockMusicaRepository;
             _scenarioContext[ParameterNameGuide.MockMusicaService] = mockMusicaService;
             
-            var mockRepoLogger = new Mock<ILogger<WebApi.Controllers.MusicasController>>();
+            var mockMusicasLogger = new Mock<ILogger<WebApi.Controllers.MusicasController>>();
 
-            _scenarioContext[ParameterNameGuide.MusicasController] = new WebApi.Controllers.MusicasController(mockMusicaRepository.Object, mockMusicaService.Object, mockRepoLogger.Object);
+            _scenarioContext[ParameterNameGuide.MusicasController] = new WebApi.Controllers.MusicasController(mockMusicaRepository.Object, mockMusicaService.Object, mockMusicasLogger.Object);
 
             /////
             var mockAlbumRepository = new Mock<IAlbumRepository>();
@@ -33,7 +33,9 @@ namespace Kerber.SpotifyLibrary.Application.SpecFlowTests.CommonSteps
             _scenarioContext[ParameterNameGuide.MockAlbumRepository] = mockAlbumRepository;
             _scenarioContext[ParameterNameGuide.MockAlbumService] = mockAlbumService;
 
-            _scenarioContext[ParameterNameGuide.AlbunsController] = new WebApi.Controllers.AlbunsController(mockAlbumRepository.Object, mockAlbumService.Object);
+            var mockAlbunsLogger = new Mock<ILogger<WebApi.Controllers.AlbunsController>>();
+
+            _scenarioContext[ParameterNameGuide.AlbunsController] = new WebApi.Controllers.AlbunsController(mockAlbumRepository.Object, mockAlbumService.Object, mockAlbunsLogger.Object);
         }
 
         [Given(@"I have the id ""(.*)""")]
