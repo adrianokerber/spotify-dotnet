@@ -24,6 +24,9 @@ OR
 - Swagger on: *http://localhost:5000/swagger/*
 - Make calls to: *http://localhost:5000/api/*
 
+Example:
+    `http://localhost:5000/api/musicas` will return all songs stored.
+
 ### Roadmap
 
 The following are the improvement goals from the base project.
