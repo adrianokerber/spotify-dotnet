@@ -11,6 +11,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.Domain", "Kerber.SpotifyLibrary.Domain\Kerber.SpotifyLibrary.Domain.csproj", "{7016E5E5-2407-4B23-9CC4-AFEDF3EB4A41}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Application Layer", "1. Application Layer", "{21680C53-6364-4F65-9A8C-FCAD26AC02A1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain Layer", "2. Domain Layer", "{9C40AC83-65CF-4045-B326-A47FAB9BB5EE}"
 EndProject
@@ -20,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Test Layer", "4. Test La
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kerber.SpotifyLibrary.Application.SpecFlowTests", "Kerber.SpotifyLibrary.Application.SpecFlowTests\Kerber.SpotifyLibrary.Application.SpecFlowTests.csproj", "{5FDC27B7-2D96-4110-9C6A-81A67505E449}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 BDD Usecases", "4.1 BDD Usecases", "{D0331439-B79E-44AC-A805-520FB2D6DA41}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 BDD", "4.1 BDD", "{D0331439-B79E-44AC-A805-520FB2D6DA41}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 Unit Tests per Method", "4.2 Unit Tests per Method", "{7F1B0F11-0C6D-4DE8-A02C-348417ACBCFC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 Simple UnitTests", "4.2 Simple UnitTests", "{7F1B0F11-0C6D-4DE8-A02C-348417ACBCFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

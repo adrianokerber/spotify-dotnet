@@ -20,6 +20,9 @@ We also have tests focused on BDD (Behaviour Driven Development) with SpecFlow a
 Once running the service access:
 - Swagger on: *http://localhost:53651/swagger/*
 - Make calls to: *http://localhost:53651/api/*
+OR
+- Swagger on: *http://localhost:5000/swagger/*
+- Make calls to: *http://localhost:5000/api/*
 
 ### Roadmap
 
@@ -34,4 +37,18 @@ The following are the improvement goals from the base project.
 - [x] Add SpecFlow BDD tests and some [examples](https://docbehat.readthedocs.io/pt/v3.1/guides/1.gherkin.html)
 - [x] Add Unit Tests mocking not only controllers but the entire server
 - [x] Add [Serilog](https://github.com/serilog) for logging events in a structured way
+- [ ] Improve API performance using structs as DTO ValueObjects instead of classes
+- [ ] Add Notification pattern using MessageResult classes to return messages instead of exceptions when business rules fail.
+    Eg:
+    ```csharp
+    public class BaseResult<T> {
+        public bool Valid { get => !Messages.Any(); }
+
+        public List<string> Messages { get; set; }
+
+        public Exception Error { get; set; }
+
+        public T Data { get; set; }
+    }
+    ```
 - [ ] Add Dockerfile for automated builds - Build once run everywhere
