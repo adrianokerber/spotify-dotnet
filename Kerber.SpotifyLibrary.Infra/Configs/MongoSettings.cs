@@ -1,11 +1,11 @@
-﻿namespace Kerber.SpotifyLibrary.Infra.Utils
+﻿namespace Kerber.SpotifyLibrary.Infra.Configs
 {
     public class MongoSettings
     {
         public MongoSettings(string connectionString, string databaseString)
         {
-            this.ConnectionString = connectionString;
-            this.DatabaseString = databaseString;
+            ConnectionString = connectionString;
+            DatabaseString = databaseString;
         }
 
         public string ConnectionString { get; set; }

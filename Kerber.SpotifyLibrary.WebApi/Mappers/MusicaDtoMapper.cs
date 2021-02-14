@@ -1,9 +1,5 @@
 ﻿using Kerber.SpotifyLibrary.Domain.Entidades;
 using Kerber.SpotifyLibrary.WebApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Kerber.SpotifyLibrary.WebApi.Mappers
 {

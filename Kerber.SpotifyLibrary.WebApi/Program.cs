@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Kerber.SpotifyLibrary.WebApi
@@ -14,7 +14,7 @@ namespace Kerber.SpotifyLibrary.WebApi
 
             try
             {
-                BuildWebHost(args).Run();
+                CreateHostBuilder(args).Build().Run();
             }
             finally
             {
@@ -22,13 +22,15 @@ namespace Kerber.SpotifyLibrary.WebApi
             }
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
                 .UseSerilog((context, config) =>
                 {
                     config.ReadFrom.Configuration(context.Configuration);
-                })
-                .UseStartup<Startup>()
-                .Build();
+                });
     }
 }
