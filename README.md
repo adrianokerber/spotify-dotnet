@@ -36,10 +36,11 @@ The following are the improvement goals from the base project.
     - [x] AlbumRepository
 - [x] Enhance RESTful API to follow REST principles (eg: when creating an entity we should return 201 instead of the simple 200)
 - [x] Read Mongo connection string from configuration instead of hardcoded
-- [ ] Return DTOs instead of entity classes on Controller responses
 - [x] Add SpecFlow BDD tests and some [examples](https://docbehat.readthedocs.io/pt/v3.1/guides/1.gherkin.html)
 - [x] Add Unit Tests mocking not only controllers but the entire server
 - [x] Add [Serilog](https://github.com/serilog) for logging events in a structured way
+- [x] Add Dockerfile for automated builds - Build once run everywhere
+- [ ] Return DTOs instead of entity classes on Controller responses
 - [ ] Improve API performance using structs as DTO ValueObjects instead of classes
 - [ ] Add Notification pattern using MessageResult classes to return messages instead of exceptions when business rules fail.
     Eg:
@@ -54,4 +55,3 @@ The following are the improvement goals from the base project.
         public T Data { get; set; }
     }
     ```
-- [ ] Add Dockerfile for automated builds - Build once run everywhere
