@@ -1,4 +1,4 @@
-﻿using Kerber.SpotifyLibrary.Infra.Utils;
+﻿using Kerber.SpotifyLibrary.Infra.Configs;
 using MongoDB.Driver;
 
 namespace Kerber.SpotifyLibrary.Infra.Adapters
