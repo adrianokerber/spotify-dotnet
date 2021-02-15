@@ -40,6 +40,9 @@ The following are the improvement goals from the base project.
 - [x] Add Unit Tests mocking not only controllers but the entire server
 - [x] Add [Serilog](https://github.com/serilog) for logging events in a structured way
 - [x] Add Dockerfile for automated builds - Build once run everywhere
+- [ ] Add search by name for
+    - [ ] Songs endpoint - `/api/musicas`
+    - [ ] Albums endpoint - `/api/albuns`
 - [ ] Return DTOs instead of entity classes on Controller responses
 - [ ] Improve API performance using structs as DTO ValueObjects instead of classes
 - [ ] Add Notification pattern using MessageResult classes to return messages instead of exceptions when business rules fail.
